@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1790523706007,
+      "tag": "0000_cool_gorgon",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1790529136814,
+      "tag": "0001_great_inhumans",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1790560900113,
+      "tag": "0002_dashing_captain_marvel",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1790561252148,
+      "tag": "0003_boring_skreet",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1790563918221,
+      "tag": "0004_known_deathstrike",
+      "breakpoints": true
+    }
+  ]
+}
