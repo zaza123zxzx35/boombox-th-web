@@ -310,7 +310,7 @@ export default function Home() {
         featured: pkg.code === "B",
         imageUrl: localAssetUrl(pkg.imageUrl),
       }))
-    : packages.map((pkg) => ({ ...pkg, imageUrl: null }));
+    : packages.map((pkg) => ({ ...pkg, imageUrl: localPackageImages[pkg.code] || null }));
   const displayScents = catalogQuery.data?.scents?.length ? catalogQuery.data.scents : sampleScents;
   const mediaByKey = Object.fromEntries((catalogQuery.data?.media ?? []).map((asset) => [asset.assetKey, localAssetUrl(asset.url)]));
   const mediaUrl = (key: string, fallback: string) => mediaByKey[key] || fallback;
