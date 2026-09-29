@@ -17,18 +17,18 @@ import { trpc } from "@/lib/trpc";
 import { createLineOrderMessage, createLineOrderUrl, LINE_ADD_FRIEND_URL } from "@shared/line";
 
 const ASSET = {
-  heroVideoOne: "assets/videos/811862701.667680_4d02ec38.mp4",
-  heroVideoTwo: "assets/videos/811859488.297621_e15f7021.mp4",
-  heroVideoThree: "assets/videos/811854541.494061_facc51e4.mp4",
-  boomboxStory: "assets/images/section-02-2_904d7755.png",
-  resultReviewOne: "assets/images/review-results-1_a6ca9f21.jpg",
-  resultReviewTwo: "assets/images/review-results-2_0ba43d4a.jpg",
-  resultReviewThree: "assets/images/review-results-3_b67858b3.jpg",
+  heroVideoOne: "/assets/videos/811862701.667680_4d02ec38.mp4",
+  heroVideoTwo: "/assets/videos/811859488.297621_e15f7021.mp4",
+  heroVideoThree: "/assets/videos/811854541.494061_facc51e4.mp4",
+  boomboxStory: "/assets/images/section-02-2_904d7755.png",
+  resultReviewOne: "/assets/images/review-results-1_a6ca9f21.jpg",
+  resultReviewTwo: "/assets/images/review-results-2_0ba43d4a.jpg",
+  resultReviewThree: "/assets/images/review-results-3_b67858b3.jpg",
 };
 const HERO_POSTERS = [
-  "assets/images/hero-one_3d02f3af.jpg",
-  "assets/images/hero-two_bd881a71.jpg",
-  "assets/images/hero-three_6af86c61.jpg",
+  "/assets/images/hero-one_3d02f3af.jpg",
+  "/assets/images/hero-two_bd881a71.jpg",
+  "/assets/images/hero-three_6af86c61.jpg",
 ];
 
 function HeroVideoCard({ src, index, poster }: { src: string; index: number; poster?: string }) {
@@ -131,14 +131,14 @@ const sampleScents = [
 ].map(([name, category], index) => ({ id: index, name, category, sortOrder: index + 1 }));
 
 const popularScentImages: Record<string, string> = {
-  "สตรอว์เบอร์รี": "assets/images/strawberry_9cd0b7b9.jpg",
-  "องุ่น": "assets/images/grape_f4df2683.jpg",
-  "แตงโม": "assets/images/watermelon_10283877.jpg",
-  "เลมอน": "assets/images/lemon_9c09f5a2.jpg",
-  "มะลิ": "assets/images/jasmine_df2c2bbb.jpg",
-  "ส้ม": "assets/images/orange_dec90763.jpg",
-  "เชอร์รี": "assets/images/cherry_39551912.jpg",
-  "โคล่า": "assets/images/cola_f1da6976.jpg",
+  "สตรอว์เบอร์รี": "/assets/images/strawberry_9cd0b7b9.jpg",
+  "องุ่น": "/assets/images/grape_f4df2683.jpg",
+  "แตงโม": "/assets/images/watermelon_10283877.jpg",
+  "เลมอน": "/assets/images/lemon_9c09f5a2.jpg",
+  "มะลิ": "/assets/images/jasmine_df2c2bbb.jpg",
+  "ส้ม": "/assets/images/orange_dec90763.jpg",
+  "เชอร์รี": "/assets/images/cherry_39551912.jpg",
+  "โคล่า": "/assets/images/cola_f1da6976.jpg",
 };
 
 function localAssetUrl(url: string | null | undefined) {
@@ -162,10 +162,10 @@ const popularScentMediaKeys: Record<string, string> = {
 };
 
 const localPackageImages: Record<string, string> = {
-  A: "assets/images/8b65eb03-4411-4063-bc8d-65d6288daabe_a0a31788.png",
-  B: "assets/images/2daf29b6-bc38-491a-85bf-a9da982d3cb3_cb6b1953.png",
-  C: "assets/images/ae27a38c-e83c-4cac-a01b-824ceae9f11c_2ca2422b.png",
-  D: "assets/images/c2d72a69-6b37-4629-8657-0c528b7e5fc1_8804bbd1.png",
+  A: "/assets/images/8b65eb03-4411-4063-bc8d-65d6288daabe_a0a31788.png",
+  B: "/assets/images/2daf29b6-bc38-491a-85bf-a9da982d3cb3_cb6b1953.png",
+  C: "/assets/images/ae27a38c-e83c-4cac-a01b-824ceae9f11c_2ca2422b.png",
+  D: "/assets/images/c2d72a69-6b37-4629-8657-0c528b7e5fc1_8804bbd1.png",
 };
 
 const packages = [
