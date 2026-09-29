@@ -5,3 +5,6 @@ dist/
 .DS_Store
 .manus-logs/
 .manus/
+
+# Local Netlify folder
+.netlify
