@@ -314,7 +314,7 @@ export default function Home() {
   const displayScents = catalogQuery.data?.scents?.length ? catalogQuery.data.scents : sampleScents;
   const mediaByKey = Object.fromEntries((catalogQuery.data?.media ?? []).map((asset) => [asset.assetKey, localAssetUrl(asset.url)]));
   const mediaUrl = (key: string, fallback: string) => mediaByKey[key] || fallback;
-  const metaPixelId = catalogQuery.data?.settings?.metaPixelId?.trim() || "";
+  const metaPixelId = catalogQuery.data?.settings?.metaPixelId?.trim() || "2112837926041585";
   const deviceImageUrls = catalogQuery.data?.deviceImages?.length
     ? catalogQuery.data.deviceImages.reduce<Record<string, string | null>>((images, item) => { images[item.color] = localAssetUrl(item.imageUrl); return images; }, { ...deviceImageFallbacks })
     : deviceImageFallbacks;
