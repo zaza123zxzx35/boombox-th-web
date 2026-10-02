@@ -95,6 +95,7 @@ const customerReviews = [
   ["Namwan", "ได้รับของเรียบร้อยค่ะ ไม่มีรอยหรือความเสียหาย ลองใช้แล้วรู้สึกว่าคุ้มมาก"],
   ["Peerapat", "โดยรวมดีมากครับ ส่งไว ของตรงปก งานเรียบร้อย ร้านดูแลดี ไว้จะกลับมาอุดหนุนอีก"],
 ].map(([name, text]) => ({ name, text }));
+const customerProofImages = Array.from({ length: 8 }, (_, index) => `/assets/images/customer-proof-${String(index + 1).padStart(2, "0")}.jpg`);
 
 const painPoints = [
   { icon: "◌", title: "เบื่อกลิ่นเดิม ๆ", text: "อยากมีตัวเลือกใหม่ โดยไม่ต้องซื้อหลายแบบมาลอง" },
@@ -159,10 +160,10 @@ const popularScentMediaKeys: Record<string, string> = {
 };
 
 const localPackageImages: Record<string, string> = {
-  A: "/assets/images/8b65eb03-4411-4063-bc8d-65d6288daabe_a0a31788.png",
-  B: "/assets/images/2daf29b6-bc38-491a-85bf-a9da982d3cb3_cb6b1953.png",
-  C: "/assets/images/ae27a38c-e83c-4cac-a01b-824ceae9f11c_2ca2422b.png",
-  D: "/assets/images/c2d72a69-6b37-4629-8657-0c528b7e5fc1_8804bbd1.png",
+  A: "/assets/images/set-a.jpg",
+  B: "/assets/images/set-b.jpg",
+  C: "/assets/images/set-c.jpg",
+  D: "/assets/images/set-d.jpg",
 };
 
 const packages = [
@@ -179,13 +180,11 @@ const packageDetails = {
   D: { boxes: 6, beads: 600, colors: ["สีเงิน", "สีฟ้า", "สีดำ"], selectableColor: false, selectableScent: true, note: "เครื่องพร้อมไฟแช็กในตัว 3 เครื่อง: สีเงิน + สีฟ้า + สีดำ" },
 } as const;
 
-// Dedicated product photos can be added here once the four real device files are uploaded.
-// Until then the modal uses the package artwork as a safe visual fallback and labels it clearly.
 const deviceImageFallbacks: Record<string, string | null> = {
-  "สีดำ": null,
-  "สีขาว": null,
-  "สีเงิน": null,
-  "สีฟ้า": null,
+  "สีดำ": "/assets/images/device-black.jpg",
+  "สีขาว": "/assets/images/device-white.jpg",
+  "สีเงิน": "/assets/images/device-vip-silver.jpg",
+  "สีฟ้า": "/assets/images/device-vip-blue.jpg",
 };
 
 const scentCategoryMeta: Record<string, { icon: string; tone: string }> = {
@@ -501,7 +500,13 @@ export default function Home() {
 
         <section className="student-strip review-strip" id="reviews" aria-label="รีวิวจากลูกค้า">
           <div className="container">
-            <p className="strip-label">เสียงจากลูกค้าที่เลือก BOOMBOX TH — รีวิว 15 รายการ</p>
+            <p className="strip-label">รีวิวและภาพจากลูกค้าที่เลือก BOOMBOX TH</p>
+            <div className="proof-gallery" aria-label="ภาพรีวิวจากลูกค้า">
+              {customerProofImages.map((image, index) => <a className="proof-card" href={image} target="_blank" rel="noreferrer" key={image}>
+                <img src={image} alt={`รีวิวจากลูกค้า BoomBox TH ${index + 1}`} loading="lazy" decoding="async" />
+              </a>)}
+            </div>
+            <p className="review-caption">ดูภาพรีวิวเพิ่มเติมได้ · สอบถามรายละเอียดและเช็กสต็อกกับทีมงานทาง LINE</p>
           </div>
           <div className="marquee-wrap" ref={reviewViewportRef}>
             <div className="marquee-track">
