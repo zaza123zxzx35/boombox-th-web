@@ -312,7 +312,8 @@ export default function Home() {
     trackEngagement("package_view", pkg.code);
     setSelectedPackage(pkg);
     setSelectedColor(detail.colors[0]);
-    setSelectedScents(detail.selectableScent ? Array.from({ length: detail.boxes }, () => displayScents[0]?.name ?? "เลือกกลิ่น") : []);
+    setSelectedScents(detail.selectableScent ? Array.from({ length: detail.boxes }, () => "เลือกกลิ่น") : []);
+    setOrderNotice("");
   };
 
   const closePackageModal = () => setSelectedPackage(null);
@@ -321,6 +322,11 @@ export default function Home() {
     if (lineCtaLoading) return;
     setLineCtaLoading(true);
     const detail = packageDetails[pkg.code as keyof typeof packageDetails];
+    if (detail.selectableScent && selectedScents.some((scent) => scent === "เลือกกลิ่น")) {
+      setLineCtaLoading(false);
+      setOrderNotice(`กรุณาเลือกกลิ่นให้ครบ ${detail.boxes} กล่องก่อนเปิด LINE`);
+      return;
+    }
     const selection = {
       deviceColors: [selectedColor],
       scents: detail.selectableScent ? selectedScents : [],
@@ -695,6 +701,7 @@ export default function Home() {
                 <span>เครื่อง: {selectedColor}</span>
                 {selectedDetail.selectableScent && <span>กลิ่น: {selectedScents.join(" / ")}</span>}
               </div>
+              {orderNotice && <p className="package-validation-notice" role="alert">{orderNotice}</p>}
               <a href={selectedLineUrl} target="_blank" rel="noreferrer" className={`primary-button line-button package-modal-line ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { event.preventDefault(); void handlePackageOrder(selectedPackage); }}>คัดลอกข้อมูลแล้วเปิด LINE <ArrowRight size={17} /></a>
               <p className="package-modal-footnote">กดครั้งเดียว ระบบจะคัดลอกรายละเอียด Set นี้ แล้วพาไป LINE ของ BoomBox TH ให้วางข้อความส่งกับทีมงานได้ทันที</p>
             </div>

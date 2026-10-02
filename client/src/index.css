@@ -694,6 +694,7 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 .package-scent-selects select:focus { border-color: var(--green-bright); box-shadow: 0 0 0 3px rgba(34,197,94,.1); }
 .package-selection-summary { display: grid; gap: 4px; margin-top: 21px; padding: 13px 14px; border-left: 3px solid var(--red); border-radius: 10px; color: var(--muted); background: rgba(255,255,255,.045); font-size: 12px; line-height: 1.5; }
 .package-selection-summary strong { color: var(--ink); font-family: Kanit, sans-serif; font-size: 15px; }
+.package-validation-notice { margin: 11px 0 0; padding: 10px 12px; border: 1px solid rgba(255,181,92,.42); border-radius: 10px; color: #ffdca8; background: rgba(255,153,51,.1); font-size: 12px; line-height: 1.45; }
 .package-modal-line { width: 100%; margin-top: 16px; justify-content: center; border: 0; cursor: pointer; }
 .package-modal-footnote { margin: 8px 0 0; color: var(--muted-2); font-size: 11px; line-height: 1.5; text-align: center; }
 @media (max-width: 640px) {
