@@ -56,7 +56,7 @@ function HeroVideoCard({ src, index, poster }: { src: string; index: number; pos
 
 const results = [
   {
-    amount: "40 กลิ่น",
+    amount: "19 กลิ่น",
     period: "ให้เลือก",
     channel: "ผลไม้ มิ้นท์ ขนม ดอกไม้ และเครื่องดื่ม",
     mediaKey: "resultReviewOne",
@@ -104,7 +104,7 @@ const painPoints = [
 ];
 
 const modelSteps = [
-  ["B", "Better Taste", "40 กลิ่นให้เลือก ทั้งผลไม้ มิ้นท์ ขนม และดอกไม้"],
+  ["B", "Better Taste", "19 กลิ่นให้เลือก ทั้งผลไม้ มิ้นท์ ขนม และดอกไม้"],
   ["O", "One Press", "ใช้แค่ 3 วินาที ใส่เม็ด กด แล้วเสร็จ"],
   ["O", "On-the-go", "ขนาดกะทัดรัด พกง่าย และเปลี่ยนกลิ่นได้ตามสไตล์"],
 ];
@@ -114,7 +114,7 @@ const faqItems = [
   ["ใช้งานยากไหม?", "ใช้งานง่าย แค่ใส่เม็ดกลิ่นลงในเครื่อง กด และรอประมาณ 3 วินาที ก็พร้อมใช้งาน"],
   ["เลือกกลิ่นได้อย่างไร?", "เลือกจากกลิ่นฮิตบนหน้าเว็บ หรือทัก LINE เพื่อให้ทีมงานช่วยแนะนำกลิ่นตามสไตล์ที่ชอบได้ฟรี"],
   ["สั่งซื้อและชำระเงินอย่างไร?", "กดปุ่มสั่งแพ็กเกจที่ต้องการ ระบบจะพาไป LINE @425syacj พร้อมคัดลอกข้อความแพ็กเกจไว้ให้วางส่งกับทีมงานได้ทันที"],
-  ["ส่งอย่างไรและจ่ายเงินแบบไหน?", "ทุก Set ส่งฟรี และเก็บเงินปลายทางได้ ไม่ต้องโอนก่อน หากต้องการให้ทีมงานช่วยเลือก Set หรือกลิ่น ทัก LINE ได้เลย"],
+  ["ส่งอย่างไรและจ่ายเงินแบบไหน?", "ทุก Set ส่งฟรี และเก็บเงินปลายทางได้ ส่วน Refill ส่งฟรีเมื่อรวมครบ 200 เม็ด ไม่ต้องโอนก่อน หากต้องการให้ทีมงานช่วยเลือก Set หรือกลิ่น ทัก LINE ได้เลย"],
 ];
 
 const sampleScents = [
@@ -167,13 +167,13 @@ const localPackageImages: Record<string, string> = {
 };
 
 const packages = [
-  { code: "A", name: "เริ่มต้น", oldPrice: "599", price: "299", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "เม็ดรวม 100 เม็ด · 40 กลิ่น", scent: "สุ่มกลิ่นรวม", featured: true },
+  { code: "A", name: "เริ่มต้น", oldPrice: "599", price: "299", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "เม็ดรวม 100 เม็ด · 19 กลิ่น", scent: "สุ่มกลิ่นรวม", featured: true },
   { code: "B", name: "คุ้มค่า", oldPrice: "699", price: "389", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "200 เม็ด · 2 ตลับ", scent: "เลือกได้ 2 กลิ่น" },
   { code: "C", name: "จัดเต็ม", oldPrice: "899", price: "499", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "400 เม็ด · 4 ตลับ", scent: "เลือกได้ 4 กลิ่น" },
   { code: "D", name: "VIP", oldPrice: "1,099", price: "649", device: "เครื่อง 1 เครื่อง · เลือกดำ/เงิน/ฟ้า", extras: "600 เม็ด · 6 ตลับ", scent: "เลือกได้ 6 กลิ่น" },
 ];
 const packageDetails = {
-  A: { boxes: 1, beads: 100, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: false, note: "เม็ดรวม 40 กลิ่น สุ่มกลิ่น เลือกกลิ่นไม่ได้" },
+  A: { boxes: 1, beads: 100, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: false, note: "เม็ดรวม 19 กลิ่น สุ่มกลิ่น เลือกกลิ่นไม่ได้" },
   B: { boxes: 2, beads: 200, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: true, note: "เลือกกลิ่นได้ 2 กล่อง และเลือกกลิ่นซ้ำได้" },
   C: { boxes: 4, beads: 400, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: true, note: "เลือกกลิ่นได้ 4 กล่อง และเลือกกลิ่นซ้ำได้" },
   D: { boxes: 6, beads: 600, colors: ["สีดำ", "สีเงิน", "สีฟ้า"], selectableColor: true, selectableScent: true, note: "เลือกสีเครื่องได้ 1 สี และเลือกกลิ่นได้ 6 กลิ่น" },
@@ -277,10 +277,10 @@ export default function Home() {
         extras: pkg.extrasLabel,
         scent: pkg.scentLabel,
         featured: pkg.code === "B",
-        imageUrl: localAssetUrl(pkg.imageUrl) || localPackageImages[pkg.code] || null,
+        imageUrl: localPackageImages[pkg.code] || localAssetUrl(pkg.imageUrl) || null,
       }))
     : packages.map((pkg) => ({ ...pkg, imageUrl: localPackageImages[pkg.code] || null }));
-  const displayScents = catalogQuery.data?.scents?.length ? catalogQuery.data.scents : sampleScents;
+  const displayScents = (catalogQuery.data?.scents?.length ? catalogQuery.data.scents : sampleScents).slice(0, 19);
   const mediaByKey = Object.fromEntries((catalogQuery.data?.media ?? []).map((asset) => [asset.assetKey, localAssetUrl(asset.url)]));
   const mediaUrl = (key: string, fallback: string) => mediaByKey[key] || fallback;
   const metaPixelId = catalogQuery.data?.settings?.metaPixelId?.trim() || "2112837926041585";
@@ -466,10 +466,10 @@ export default function Home() {
             <p className="eyebrow"><span /> อุปกรณ์อัดเม็ดบีทแบบพกพา <span /></p>
             <p className="boombox-label">BOOMBOX TH</p>
             <h1>อุปกรณ์เปลี่ยนกลิ่นจากเม็ดบีท<br /><em>พกง่าย ใช้ได้ใน 3 วินาที</em></h1>
-            <p className="hero-subtitle">เลือกกลิ่นจากเม็ดรวม 40 กลิ่น ใส่เม็ด แล้วกดใช้งานได้ทันที — เริ่มต้น 299 บาท ส่งฟรี เก็บเงินปลายทาง</p>
+            <p className="hero-subtitle">เลือกกลิ่นจากเม็ดรวม 19 กลิ่น ใส่เม็ด แล้วกดใช้งานได้ทันที — เริ่มต้น 299 บาท Set ส่งฟรี เก็บเงินปลายทาง</p>
             <p className="hero-step-line"><strong>เลือกสีเครื่อง</strong><span>→</span><strong>ใส่เม็ดรวม</strong><span>→</span><strong>กดใช้งาน</strong></p>
             <div className="hero-offer-card lead-magnet-card">
-              <div><strong><span className="lead-magnet-badge">ฟรี</span> รับรายการ 40 กลิ่น + ช่วยเลือก Set</strong><span>ทัก LINE รับรายการกลิ่นและคำแนะนำฟรี พร้อมดู Set A ฿299 ได้เครื่อง 1 เครื่อง + เม็ดรวม 100 เม็ด</span></div>
+              <div><strong><span className="lead-magnet-badge">ฟรี</span> รับรายการ 19 กลิ่น + ช่วยเลือก Set</strong><span>ทัก LINE รับรายการกลิ่นและคำแนะนำฟรี พร้อมดู Set A ฿299 ได้เครื่อง 1 เครื่อง + เม็ดรวม 100 เม็ด</span></div>
               <span className="hero-offer-price">ส่งฟรี</span>
             </div>
             <div className="hero-actions offer-actions">
@@ -486,7 +486,7 @@ export default function Home() {
         <section className="trust-strip" aria-label="ความมั่นใจในการสั่งซื้อ">
           <div className="container trust-strip-grid">
             <div><Check size={18} /><span><strong>เก็บเงินปลายทาง</strong><small>ไม่ต้องโอนก่อน</small></span></div>
-            <div><Check size={18} /><span><strong>ทุก Set ส่งฟรี</strong><small>ทั่วไทย</small></span></div>
+            <div><Check size={18} /><span><strong>ทุก Set ส่งฟรี</strong><small>Refill ส่งฟรีเมื่อครบ 200 เม็ด</small></span></div>
             <div><ShieldCheck size={18} /><span><strong>เปลี่ยนคืนได้ 7 วัน</strong><small>ตามเงื่อนไขร้าน</small></span></div>
             <div><Check size={18} /><span><strong>ปรึกษาฟรีทาง LINE</strong><small>ช่วยเลือกกลิ่นได้</small></span></div>
           </div>
@@ -498,7 +498,7 @@ export default function Home() {
               <p className="eyebrow">สิ่งที่คุณจะได้รับ</p>
               <h2 id="product-clarity-title">อุปกรณ์พกพา สำหรับเพิ่มตัวเลือกกลิ่นในชีวิตประจำวัน</h2>
               <p>เลือกกลิ่นที่ชอบ ใส่เม็ด กด และใช้งานตามขั้นตอนที่แนะนำ ไม่ต้องตั้งค่าซับซ้อน พร้อมให้ทีมงานช่วยเลือก Set ที่เหมาะกับคุณ</p>
-              <div className="product-clarity-points"><span><Check size={16} /> 40 กลิ่นให้เลือก</span><span><Check size={16} /> ใช้งานง่ายใน 3 ขั้นตอน</span><span><Check size={16} /> เริ่มต้น 299 บาท</span></div>
+              <div className="product-clarity-points"><span><Check size={16} /> 19 กลิ่นให้เลือก</span><span><Check size={16} /> ใช้งานง่ายใน 3 ขั้นตอน</span><span><Check size={16} /> เริ่มต้น 299 บาท</span></div>
             </div>
             <figure className="product-clarity-media"><img src={ASSET.boomboxStory} alt="อุปกรณ์ BoomBox TH และเม็ดกลิ่น" loading="lazy" decoding="async" /></figure>
           </div>
@@ -549,7 +549,7 @@ export default function Home() {
             <div className="offer-intro">
               <p className="eyebrow">เริ่มต้น 299 บาท · เลือก Set ได้ตามการใช้งาน</p>
               <h2>เลือกแพ็กเกจที่เหมาะกับคุณ</h2>
-              <p className="offer-deadline">ทุก Set ส่งฟรี · เก็บเงินปลายทาง · ไม่ต้องโอนก่อน</p>
+              <p className="offer-deadline">ทุก Set ส่งฟรี · Refill ส่งฟรีเมื่อครบ 200 เม็ด · เก็บเงินปลายทาง</p>
             </div>
             <p className="order-helper"><strong>วิธีไปต่อ:</strong> เลือกแพ็กเกจ → ดูของที่ได้รับ → ส่งข้อมูลให้ทีมงานใน LINE</p>
             <div className="pricing-grid package-grid">
@@ -589,9 +589,9 @@ export default function Home() {
               <h3>สิ่งที่คุณจะได้รับในทุกแพ็กเกจ</h3>
               <div className="benefit-grid">
                 <span><Check size={16} /> เครื่องอัดเม็ดบีท ใช้ 3 วิ จบ</span>
-                <span><Check size={16} /> 40 กลิ่นให้เลือก ทั้งผลไม้ มิ้นท์ ขนม และดอกไม้</span>
+                <span><Check size={16} /> 19 กลิ่นให้เลือก ทั้งผลไม้ มิ้นท์ ขนม และดอกไม้</span>
                 <span><Check size={16} /> ปรึกษาฟรีทาง LINE ทีมงานตอบ 24 ชม.</span>
-                <span><Check size={16} /> ทุก Set ส่งฟรีทั่วไทย · เก็บเงินปลายทางได้</span>
+                <span><Check size={16} /> ทุก Set ส่งฟรี · Refill ส่งฟรีเมื่อครบ 200 เม็ด</span>
                 <span><Check size={16} /> เปลี่ยนคืนได้ 7 วัน ไม่พอใจคืนได้</span>
               </div>
             </div>
@@ -624,7 +624,7 @@ export default function Home() {
 
         <section className="scent-section" id="scents">
           <div className="container">
-            <SectionHeading accent="40 กลิ่น">เลือกความหอมในแบบของคุณ</SectionHeading>
+              <SectionHeading accent="19 กลิ่น">เลือกความหอมในแบบของคุณ</SectionHeading>
             <p className="center-intro">ตัวอย่างกลิ่นที่มีให้เลือก เปลี่ยนได้ตามอารมณ์และสไตล์ของคุณ</p>
             <p className="scent-subheading">กลิ่นฮิตที่ลูกค้าเลือกบ่อย</p>
             <div className="popular-scent-grid">
