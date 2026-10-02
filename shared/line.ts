@@ -1,6 +1,17 @@
 export const LINE_ACCOUNT_ID = "@425syacj";
 export const LINE_ADD_FRIEND_URL = `https://line.me/R/ti/p/${LINE_ACCOUNT_ID}`;
 
+export function createLineMessageUrl(message: string) {
+  return `https://line.me/R/oaMessage/${encodeURIComponent(LINE_ACCOUNT_ID)}/?${encodeURIComponent(message)}`;
+}
+
+export const LINE_SCENT_LIST_URL = createLineMessageUrl(
+  "สวัสดีครับ สนใจ BoomBox TH ครับ ขอรายการกลิ่น 19 กลิ่นและคำแนะนำ Set ที่เหมาะกับผมหน่อยครับ",
+);
+export const LINE_SET_HELP_URL = createLineMessageUrl(
+  "สวัสดีครับ สนใจ BoomBox TH ครับ ยังเลือก Set ไม่แน่ใจ รบกวนช่วยแนะนำ Set ที่เหมาะกับผมหน่อยครับ",
+);
+
 export type LinePackageSelection = {
   deviceColors?: string[];
   scents?: string[];
@@ -22,5 +33,5 @@ export function createLineOrderMessage(
 }
 
 export function createLineOrderUrl(pkg: { code: string; name: string; price: string }, selection?: LinePackageSelection) {
-  return `https://line.me/R/oaMessage/${encodeURIComponent(LINE_ACCOUNT_ID)}/?${encodeURIComponent(createLineOrderMessage(pkg, selection))}`;
+  return createLineMessageUrl(createLineOrderMessage(pkg, selection));
 }

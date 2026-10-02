@@ -78,6 +78,7 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 .video-overlay > span { padding: 9px 20px; border: 1px solid rgba(242,239,233,.18); border-radius: 999px; background: rgba(7,7,10,.72); color: var(--ink); font-family: Kanit, sans-serif; font-size: 15px; }
 .hero-actions { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
 .offer-actions { flex-direction: column; align-items: center; gap: 0; }
+.hero-set-cta { border: 0; }
 .countdown-wrap { width: min(620px, 100%); margin: 31px auto 0; }
 .countdown-title { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 14px; color: #ffb5a9; font-family: Kanit, sans-serif; font-size: 18px; font-weight: 600; }
 .countdown-title svg { color: var(--red); }
@@ -187,6 +188,7 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 .price-kicker { margin: 0 0 5px; color: var(--red); font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: .14em; }
 .master-card .price-kicker { color: var(--green-bright); }
 .price-card h3 { margin: 0; font-family: Kanit, sans-serif; font-size: 29px; }
+.package-recommendation { min-height: 42px; margin: 6px 0 0; color: var(--green-bright); font-size: 13px; line-height: 1.45; }
 .price-description { min-height: 50px; margin: 9px 0 21px; color: var(--muted); line-height: 1.55; }
 .price { margin-bottom: 0; color: var(--ink); font-family: Kanit, sans-serif; font-size: 54px; font-weight: 800; line-height: 1; }
 .price small { margin-right: 2px; color: var(--red); font-size: 24px; }
@@ -676,7 +678,10 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 .package-modal-price { margin-top: 5px; color: #ff5b5f; font-family: Kanit, sans-serif; font-size: 30px; font-weight: 800; }
 .package-modal-summary { margin: 5px 0 23px; color: var(--muted); font-size: 13px; line-height: 1.55; }
 .package-option-group { margin-top: 18px; }
+.package-option-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .package-option-group h3 { margin: 0 0 10px; color: var(--ink); font-family: Kanit, sans-serif; font-size: 17px; }
+.scent-progress { flex: 0 0 auto; margin-bottom: 10px; padding: 4px 8px; border: 1px solid rgba(52,224,127,.3); border-radius: 999px; color: var(--green-bright); background: rgba(34,197,94,.08); font-size: 11px; font-weight: 700; }
+.modal-recommendation { min-height: 0; margin: -11px 0 16px; }
 .package-option-help { margin: -3px 0 11px; color: var(--muted-2); font-size: 12px; line-height: 1.5; }
 .package-color-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .package-color-choice { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 10px; border: 1px solid rgba(255,255,255,.15); border-radius: 11px; color: var(--ink); background: rgba(255,255,255,.045); cursor: pointer; font: inherit; font-size: 13px; text-align: left; }

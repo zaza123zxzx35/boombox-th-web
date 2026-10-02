@@ -11,7 +11,7 @@ import {
   Zap,
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
-import { createLineOrderMessage, createLineOrderUrl, LINE_ADD_FRIEND_URL } from "@shared/line";
+import { createLineOrderMessage, createLineOrderUrl, LINE_ADD_FRIEND_URL, LINE_SCENT_LIST_URL, LINE_SET_HELP_URL } from "@shared/line";
 
 const ASSET = {
   heroVideoOne: "/assets/videos/811862701.667680_4d02ec38.mp4",
@@ -161,6 +161,12 @@ const packages = [
   { code: "C", name: "จัดเต็ม", oldPrice: "899", price: "499", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "400 เม็ด · 4 ตลับ", scent: "เลือกได้ 4 กลิ่น" },
   { code: "D", name: "VIP", oldPrice: "1,099", price: "649", device: "เครื่อง 1 เครื่อง · เลือกดำ/เงิน/ฟ้า", extras: "600 เม็ด · 6 ตลับ", scent: "เลือกได้ 6 กลิ่น" },
 ];
+const packageRecommendations: Record<string, string> = {
+  A: "เหมาะกับคนที่อยากลองก่อนและให้ร้านสุ่มกลิ่นให้",
+  B: "แนะนำสำหรับลูกค้าส่วนใหญ่ เลือกกลิ่นเองได้ 2 กล่อง",
+  C: "เหมาะกับคนที่อยากมีเม็ดสำรองและเลือกได้หลายกลิ่น",
+  D: "เหมาะกับคนที่ต้องการชุดใหญ่ เลือกได้ 6 กลิ่นและเครื่อง VIP",
+};
 const packageDetails = {
   A: { boxes: 1, beads: 100, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: false, note: "เม็ดรวม 19 กลิ่น สุ่มกลิ่น เลือกกลิ่นไม่ได้" },
   B: { boxes: 2, beads: 200, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: true, note: "เลือกกลิ่นได้ 2 กล่อง และเลือกกลิ่นซ้ำได้" },
@@ -239,7 +245,7 @@ function AppHeader({ onMenu, onLineClick }: { onMenu: () => void; onLineClick: (
         <a href="#offers">แพ็กเกจ</a>
         <a href="#faq">คำถามที่พบบ่อย</a>
       </nav>
-      <a className="header-cta" href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" onClick={(event) => onLineClick(event, undefined, "header")}>คุยกับทีมงานใน LINE</a>
+      <a className="header-cta" href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" onClick={(event) => onLineClick(event, undefined, "header")}>คุยกับทีมงานใน LINE</a>
       <button className="mobile-menu" type="button" onClick={onMenu} aria-label="เปิดเมนู"><Menu size={21} /></button>
     </header>
   );
@@ -305,7 +311,8 @@ export default function Home() {
     setLineCtaLoading(true);
     setLineHandoffNotice("loading");
     trackLineClickUnloadSafe(packageCode, undefined, undefined, ctaPosition);
-    window.location.assign(LINE_ADD_FRIEND_URL);
+    const destination = event.currentTarget.getAttribute("href") || LINE_ADD_FRIEND_URL;
+    window.location.assign(destination);
   };
 
   const openPackageModal = (pkg: { code: string; name: string; price: string; imageUrl?: string | null }) => {
@@ -443,7 +450,7 @@ export default function Home() {
           <a href="#reviews" onClick={() => setIsMenuOpen(false)}>รีวิวลูกค้า</a>
           <a href="#offers" onClick={() => setIsMenuOpen(false)}>แพ็กเกจ</a>
           <a href="#faq" onClick={() => setIsMenuOpen(false)}>คำถามที่พบบ่อย</a>
-          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event, undefined, "mobile_menu"); }}>ขอคำแนะนำฟรีใน LINE</a>
+          <a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event, undefined, "mobile_menu"); }}>ขอคำแนะนำฟรีใน LINE</a>
         </div>
       )}
 
@@ -462,7 +469,8 @@ export default function Home() {
               <span className="hero-offer-price">ทุก Set<br />ส่งฟรี</span>
             </div>
             <div className="hero-actions offer-actions">
-              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => handleLineCtaClick(event, undefined, "hero")}>รับรายการกลิ่นฟรีใน LINE <ArrowRight size={17} /></a>
+              <a href="#offers" className="primary-button line-button hero-set-cta">เลือก Set เริ่มต้น ฿299 <ArrowRight size={17} /></a>
+              <a href={LINE_SCENT_LIST_URL} target="_blank" rel="noreferrer" className={`secondary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => handleLineCtaClick(event, undefined, "hero_line")}>รับรายการกลิ่นฟรีใน LINE <ArrowRight size={17} /></a>
               <p className="hero-note">ไม่ต้องโอนก่อน · ทักมาถามก่อนได้ · เปิด LINE ทันที</p>
             </div>
             <div className="hero-video-gallery" aria-label="วิดีโอ BOOMBOX TH">
@@ -548,6 +556,7 @@ export default function Home() {
                   <div className="package-topline"><span>แพ็กเกจ {pkg.code}</span>{pkg.featured && <span>แนะนำ</span>}</div>
                   <div className="package-image-slot">{pkg.imageUrl ? <img src={pkg.imageUrl} alt={`รูปสินค้าจริงแพ็กเกจ ${pkg.code}`} loading="lazy" decoding="async" /> : <div className="package-image-fallback"><Zap size={24} /><span>ภาพแพ็กเกจ {pkg.code}</span></div>}</div>
                   <h3>{pkg.name}</h3>
+                  <p className="package-recommendation">{packageRecommendations[pkg.code]}</p>
                   <div className="old-price">฿{pkg.oldPrice}</div>
                   <div className="price"><small>฿</small>{pkg.price}</div>
                   <ul className="package-features">
@@ -585,7 +594,7 @@ export default function Home() {
               </div>
             </div>
             <div className="offer-final-cta">
-              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ให้ทีมงานช่วยเลือก Set ฟรี <ArrowRight size={17} /></a>
+              <a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ให้ทีมงานช่วยเลือก Set ฟรี <ArrowRight size={17} /></a>
               <p>ยังเลือกไม่ได้? ทัก LINE ให้ทีมงานช่วยแนะนำฟรี</p>
             </div>
             {orderNotice && <p className="order-notice"><Check size={15} /> {orderNotice}</p>}
@@ -641,7 +650,7 @@ export default function Home() {
             </div>
             <div className="faq-cta">
               <p>ยังเลือกไม่ได้? ทีมงานช่วยแนะนำให้ฟรี</p>
-            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ให้ทีมงานช่วยเลือก Set ฟรี <ArrowRight size={17} /></a>
+            <a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ให้ทีมงานช่วยเลือก Set ฟรี <ArrowRight size={17} /></a>
             </div>
           </div>
         </section>
@@ -651,7 +660,7 @@ export default function Home() {
             <ShieldCheck size={30} className="trust-icon" />
             <h2>มีคำถาม? คุยกับทีม BoomBox TH ได้เลย</h2>
             <p>ทีมงานพร้อมให้คำแนะนำเรื่องกลิ่น แพ็กเกจ และวิธีใช้งาน<br />ทัก LINE มาได้ตลอด เรายินดีช่วยเลือกแพ็กเกจที่เหมาะกับคุณ</p>
-            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ขอคำแนะนำฟรีใน LINE</a>
+            <a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ขอคำแนะนำฟรีใน LINE</a>
           </div>
         </section>
       </main>
@@ -672,6 +681,7 @@ export default function Home() {
               <h2 id="package-modal-title">{selectedPackage.name}</h2>
               <div className="package-modal-price">฿{selectedPackage.price}</div>
               <p className="package-modal-summary">{selectedDetail.beads} เม็ด · {selectedDetail.boxes} กล่อง · {selectedDetail.note}</p>
+              <p className="package-recommendation modal-recommendation">{packageRecommendations[selectedPackage.code]}</p>
 
               <div className="package-option-group">
                 <h3>ขั้นตอนที่ 1 · เลือกสีเครื่อง</h3>
@@ -682,7 +692,7 @@ export default function Home() {
 
               {selectedDetail.selectableScent ? (
                 <div className="package-option-group">
-                  <h3>ขั้นตอนที่ 2 · เลือกกลิ่น {selectedDetail.boxes} กล่อง</h3>
+                  <div className="package-option-title"><h3>ขั้นตอนที่ 2 · เลือกกลิ่น {selectedDetail.boxes} กล่อง</h3><span className="scent-progress">เลือกแล้ว {selectedScents.filter((scent) => scent !== "เลือกกลิ่น").length}/{selectedDetail.boxes} กล่อง</span></div>
                   <p className="package-option-help">เลือกกลิ่นซ้ำได้ เช่น มิ้นท์ {selectedDetail.boxes} กล่อง หรือเลือกหลายกลิ่นก็ได้</p>
                   <div className="package-scent-selects">
                     {selectedScents.map((scent, index) => {
@@ -710,7 +720,7 @@ export default function Home() {
         </div>
       )}
 
-      <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="ขอคำแนะนำฟรีใน LINE" onClick={(event) => handleLineCtaClick(event, undefined, "sticky_mobile")}>
+      <a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="ขอคำแนะนำฟรีใน LINE" onClick={(event) => handleLineCtaClick(event, undefined, "sticky_mobile")}>
         <strong>LINE</strong><span>ขอคำแนะนำฟรี</span>
       </a>
 
@@ -722,7 +732,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <div className="brand"><div className="brand-mark">BB</div><div><strong>BOOMBOX TH</strong><span>อุปกรณ์อัดเม็ดบีทพกพา</span></div></div>
-          <div className="footer-business-contact"><strong>ติดต่อทีมงาน</strong><a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={lineCtaLoading ? "is-loading" : ""} onClick={handleLineCtaClick}>LINE Official Account: @425syacj</a></div>
+          <div className="footer-business-contact"><strong>ติดต่อทีมงาน</strong><a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={lineCtaLoading ? "is-loading" : ""} onClick={handleLineCtaClick}>LINE Official Account: @425syacj</a></div>
           <div className="footer-links"><a href="/privacy-policy">นโยบายความเป็นส่วนตัว</a><p>© 2026 BoomBox TH</p></div>
           <a href="#top" aria-label="กลับด้านบน"><ChevronDown size={20} className="to-top" /></a>
         </div>
