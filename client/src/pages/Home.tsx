@@ -80,20 +80,13 @@ const results = [
 
 const customerReviews = [
   ["Phongsakorn", "จัดส่งไวมากครับ ได้รับของแล้ว ของตรงปก งานสวย ใช้งานง่าย ประทับใจครับ"],
-  ["Nattapong", "แพ็กของมาดีมาก ไม่มีเสียหาย ทดลองใช้แล้วโอเคเลยครับ คุ้มราคามาก"],
   ["Mintticha", "สีสวยกว่าที่คิดไว้ค่ะ ขนาดพกง่าย ใช้สะดวก ร้านตอบแชตเร็วมาก"],
   ["Kritsada", "สั่งเมื่อวาน วันนี้ได้รับแล้วครับ ส่งเร็วจริง สินค้าดูแข็งแรงและตรงตามรูป"],
   ["Ploypailin", "ชอบมากค่ะ ดีไซน์สวย พกใส่กระเป๋าได้ไม่เกะกะ ใช้งานง่ายกว่าที่คิด"],
-  ["Thanawat", "ได้ของครบตามที่สั่งครับ แพ็กเกจเรียบร้อย ตัวเครื่องดูดี ใช้งานไม่มีปัญหา"],
   ["Aomam", "ร้านบริการดีมากค่ะ มีแนะนำวิธีใช้ให้ด้วย ได้รับของเร็วและสินค้าสวยตรงปก"],
   ["Worawut", "ลองแล้วใช้งานง่ายครับ วัสดุดูดี ไม่ก๊องแก๊ง ราคาโอเคเมื่อเทียบกับคุณภาพ"],
-  ["Fahsai", "สีจริงสวยมากค่ะ ถ่ายรูปขึ้นสุดๆ ทางร้านจัดส่งไว แพ็กมาน่ารักมาก"],
   ["Sittichai", "สั่งเป็นของขวัญให้เพื่อน เพื่อนชอบมากครับ ทางร้านส่งตรงเวลาและแพ็กดีมาก"],
-  ["Benz", "ได้รับสินค้าแล้วครับ ตรงตามรายละเอียดทุกอย่าง ใช้เวลาไม่นานก็เข้าใจวิธีใช้"],
   ["Rungnapa", "ประทับใจการบริการค่ะ ตอบคำถามละเอียด ส่งของเร็ว และสินค้าดูพรีเมียมมาก"],
-  ["Chayut", "งานจริงสวยกว่าในรูปครับ ขนาดกำลังดี พกไปไหนก็สะดวก น่าจะได้ใช้อีกยาวๆ"],
-  ["Namwan", "ได้รับของเรียบร้อยค่ะ ไม่มีรอยหรือความเสียหาย ลองใช้แล้วรู้สึกว่าคุ้มมาก"],
-  ["Peerapat", "โดยรวมดีมากครับ ส่งไว ของตรงปก งานเรียบร้อย ร้านดูแลดี ไว้จะกลับมาอุดหนุนอีก"],
 ].map(([name, text]) => ({ name, text }));
 const customerProofImages = Array.from({ length: 8 }, (_, index) => `/assets/images/customer-proof-${String(index + 1).padStart(2, "0")}.jpg`);
 
@@ -121,11 +114,7 @@ const sampleScents = [
   ["สตรอว์เบอร์รี", "ผลไม้"], ["องุ่น", "ผลไม้"], ["แอปเปิล", "ผลไม้"], ["แตงโม", "ผลไม้"], ["พีช", "ผลไม้"],
   ["มะม่วง", "ผลไม้"], ["ลิ้นจี่", "ผลไม้"], ["บลูเบอร์รี", "ผลไม้"], ["เชอร์รี", "ผลไม้"], ["สับปะรด", "ผลไม้"],
   ["เลมอน", "ผลไม้"], ["ส้ม", "ผลไม้"], ["มะพร้าว", "ผลไม้"], ["กล้วย", "ผลไม้"], ["กีวี", "ผลไม้"],
-  ["มิ้นท์เย็น", "มิ้นท์"], ["สเปียร์มิ้นท์", "มิ้นท์"], ["เปปเปอร์มิ้นท์", "มิ้นท์"], ["เมนทอล", "มิ้นท์"], ["มิ้นท์เลมอน", "มิ้นท์"],
-  ["มิ้นท์องุ่น", "มิ้นท์"], ["มิ้นท์แตงโม", "มิ้นท์"], ["มิ้นท์สตรอว์เบอร์รี", "มิ้นท์"], ["ลูกอมเม็ดกลม", "ขนม"], ["หมากฝรั่ง", "ขนม"],
-  ["โคล่า", "ขนม"], ["คาราเมล", "ขนม"], ["วานิลลา", "ขนม"], ["ช็อกโกแลต", "ขนม"], ["คอตตอนแคนดี้", "ขนม"],
-  ["กุหลาบ", "ดอกไม้"], ["ลาเวนเดอร์", "ดอกไม้"], ["มะลิ", "ดอกไม้"], ["ซากุระ", "ดอกไม้"], ["ดอกไม้รวม", "ดอกไม้"],
-  ["กาแฟ", "เครื่องดื่ม"], ["ชาเขียว", "เครื่องดื่ม"], ["ชาไทย", "เครื่องดื่ม"], ["โซดา", "เครื่องดื่ม"], ["เบอร์รีรวม", "ผลไม้"],
+  ["มิ้นท์เย็น", "มิ้นท์"], ["สเปียร์มิ้นท์", "มิ้นท์"], ["เปปเปอร์มิ้นท์", "มิ้นท์"], ["เมนทอล", "มิ้นท์"],
 ].map(([name, category], index) => ({ id: index, name, category, sortOrder: index + 1 }));
 
 const popularScentImages: Record<string, string> = {
@@ -280,7 +269,7 @@ export default function Home() {
         imageUrl: localPackageImages[pkg.code] || localAssetUrl(pkg.imageUrl) || null,
       }))
     : packages.map((pkg) => ({ ...pkg, imageUrl: localPackageImages[pkg.code] || null }));
-  const displayScents = (catalogQuery.data?.scents?.length ? catalogQuery.data.scents : sampleScents).slice(0, 19);
+  const displayScents = catalogQuery.data?.scents?.length ? catalogQuery.data.scents : sampleScents;
   const mediaByKey = Object.fromEntries((catalogQuery.data?.media ?? []).map((asset) => [asset.assetKey, localAssetUrl(asset.url)]));
   const mediaUrl = (key: string, fallback: string) => mediaByKey[key] || fallback;
   const metaPixelId = catalogQuery.data?.settings?.metaPixelId?.trim() || "2112837926041585";
@@ -465,12 +454,12 @@ export default function Home() {
           <div className="hero-content reveal">
             <p className="eyebrow"><span /> อุปกรณ์อัดเม็ดบีทแบบพกพา <span /></p>
             <p className="boombox-label">BOOMBOX TH</p>
-            <h1>อุปกรณ์เปลี่ยนกลิ่นจากเม็ดบีท<br /><em>พกง่าย ใช้ได้ใน 3 วินาที</em></h1>
-            <p className="hero-subtitle">เลือกกลิ่นจากเม็ดรวม 19 กลิ่น ใส่เม็ด แล้วกดใช้งานได้ทันที — เริ่มต้น 299 บาท Set ส่งฟรี เก็บเงินปลายทาง</p>
+            <h1>อุปกรณ์พกพาสำหรับใส่เม็ดกลิ่น<br /><em>กดครั้งเดียว พร้อมใช้ใน 3 วินาที</em></h1>
+            <p className="hero-subtitle">ใส่เม็ดกลิ่นลงในเครื่อง แล้วกดเพื่อเปลี่ยนกลิ่นได้ทันที มี 19 กลิ่นให้เลือก — เริ่มต้น 299 บาท เก็บเงินปลายทาง</p>
             <p className="hero-step-line"><strong>เลือกสีเครื่อง</strong><span>→</span><strong>ใส่เม็ดรวม</strong><span>→</span><strong>กดใช้งาน</strong></p>
             <div className="hero-offer-card lead-magnet-card">
-              <div><strong><span className="lead-magnet-badge">ฟรี</span> รับรายการ 19 กลิ่น + ช่วยเลือก Set</strong><span>ทัก LINE รับรายการกลิ่นและคำแนะนำฟรี พร้อมดู Set A ฿299 ได้เครื่อง 1 เครื่อง + เม็ดรวม 100 เม็ด</span></div>
-              <span className="hero-offer-price">ส่งฟรี</span>
+              <div><strong><span className="lead-magnet-badge">ฟรี</span> รับรายการกลิ่น 19 กลิ่น + ช่วยเลือก Set</strong><span>ทัก LINE รับรายการกลิ่นฟรีและคำแนะนำจากทีมงาน พร้อมดู Set A ฿299 ได้เครื่อง 1 เครื่อง + เม็ดรวม 100 เม็ด</span></div>
+              <span className="hero-offer-price">ทุก Set<br />ส่งฟรี</span>
             </div>
             <div className="hero-actions offer-actions">
               <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => handleLineCtaClick(event, undefined, "hero")}>รับรายการกลิ่นฟรีใน LINE <ArrowRight size={17} /></a>

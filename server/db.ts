@@ -120,7 +120,7 @@ export async function listBoomboxPackages() {
 export async function listBoomboxScents() {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(boomboxScents).orderBy(asc(boomboxScents.sortOrder));
+  return db.select().from(boomboxScents).orderBy(asc(boomboxScents.sortOrder)).limit(19);
 }
 
 export async function updateBoomboxPackage(code: string, patch: Partial<InsertBoomboxPackage>) {

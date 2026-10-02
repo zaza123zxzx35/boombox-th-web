@@ -327,7 +327,7 @@ export default function AdminDashboard() {
             </section>
 
             <section className="admin-section">
-              <div className="admin-section-heading"><div><p className="admin-kicker">SCENT CATALOG</p><h2>กลิ่นตัวอย่าง 40 กลิ่น</h2><p>แก้ชื่อกลิ่นและหมวดหมู่ได้เอง รายการนี้จะแสดงใต้โปรโมชั่น 4 แพ็กเกจ</p></div><span className="admin-count">{scents.length} กลิ่น</span></div>
+              <div className="admin-section-heading"><div><p className="admin-kicker">SCENT CATALOG</p><h2>กลิ่นที่ใช้บนหน้าร้าน 19 กลิ่น</h2><p>แก้ชื่อกลิ่นและหมวดหมู่ได้เอง รายการนี้จะแสดงใต้โปรโมชั่น 4 แพ็กเกจ</p></div><span className="admin-count">{scents.length} กลิ่น</span></div>
               <div className="admin-scent-groups">
                 {Object.entries(groupedScents).map(([category, items]) => (
                   <div className="admin-scent-group" key={category}>
