@@ -91,6 +91,14 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 .secondary-button { border: 1px solid rgba(242,239,233,.24); background: transparent; color: var(--ink); }
 .secondary-button:hover { border-color: rgba(242,239,233,.55); background: rgba(242,239,233,.06); }
 
+.trust-strip { padding: 18px 0; border-top: 1px solid rgba(52,224,127,.12); border-bottom: 1px solid rgba(52,224,127,.12); background: rgba(34,197,94,.045); }
+.trust-strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.trust-strip-grid > div { display: flex; align-items: center; justify-content: center; gap: 9px; color: var(--green-bright); }
+.trust-strip-grid svg { flex: 0 0 auto; }
+.trust-strip-grid span { display: grid; gap: 2px; }
+.trust-strip-grid strong { color: var(--ink); font-family: Kanit, sans-serif; font-size: 14px; font-weight: 600; }
+.trust-strip-grid small { color: var(--muted-2); font-size: 11px; }
+
 .student-strip { padding: 8px 0 78px; background: var(--bg); border-bottom: 1px solid var(--line); }
 .strip-label { margin: 0 0 24px; color: var(--muted-2); font-size: 12px; }
 .marquee-wrap { width: 100%; overflow: hidden; }
@@ -208,6 +216,11 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
   .countdown-box { padding: 12px 5px 10px; border-radius: 12px; }
   .countdown-box strong { font-size: 25px; }
   .countdown-box span { margin-top: 6px; font-size: 11px; }
+  .trust-strip { padding: 13px 0; }
+  .trust-strip-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; }
+  .trust-strip-grid > div { justify-content: flex-start; gap: 6px; }
+  .trust-strip-grid strong { font-size: 12px; }
+  .trust-strip-grid small { font-size: 10px; }
   .student-strip { padding-bottom: 58px; }
   .strip-label { font-size: 10px; }
   .student-card { width: 138px; height: 246px; flex-basis: 138px; }
@@ -503,8 +516,10 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 /* Larger promotion artwork on package cards */
 .package-image-slot { min-height: 220px; margin-bottom: 20px; border-radius: 16px; }
 .package-image-slot img { height: 220px; object-fit: contain; background: #141018; }
+.package-image-fallback { display: grid; place-items: center; align-content: center; gap: 8px; height: 220px; color: var(--green-bright); background: radial-gradient(circle at 50% 30%, rgba(52,224,127,.16), transparent 58%), #141018; font-family: Kanit, sans-serif; font-size: 14px; }
 @media (max-width: 760px) {
   .package-image-slot, .package-image-slot img { height: 190px; min-height: 190px; }
+  .package-image-fallback { height: 190px; }
 }
 
 /* Clearer purchase flow and popular scents */

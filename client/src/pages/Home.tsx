@@ -3,9 +3,7 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
-  CirclePlay,
   Clock3,
-  ImagePlus,
   Loader2,
   Menu,
   ShieldCheck,
@@ -59,23 +57,23 @@ function HeroVideoCard({ src, index, poster }: { src: string; index: number; pos
 
 const results = [
   {
-    amount: "931 บาท",
-    period: "ประหยัดต่อเดือน",
-    channel: "ลดค่าใช้จ่ายจากบุหรี่แบบเดิม",
+    amount: "40 กลิ่น",
+    period: "ให้เลือก",
+    channel: "ผลไม้ มิ้นท์ ขนม ดอกไม้ และเครื่องดื่ม",
     mediaKey: "resultReviewOne",
     image: ASSET.resultReviewOne,
   },
   {
     amount: "3 วินาที",
     period: "พร้อมใช้งาน",
-    channel: "พกง่าย ใช้งานสะดวกในทุกวัน",
+    channel: "ใส่ กด และใช้งานตามวิธีที่แนะนำ",
     mediaKey: "resultReviewTwo",
     image: ASSET.resultReviewTwo,
   },
   {
-    amount: "40 กลิ่น",
-    period: "เลือกได้ตามสไตล์",
-    channel: "เปลี่ยนรสชาติได้ตามอารมณ์",
+    amount: "จ่ายปลายทาง",
+    period: "ไม่ต้องโอนก่อน",
+    channel: "สอบถามรายละเอียดและให้ทีมงานช่วยเลือกแพ็กเกจได้ทาง LINE",
     mediaKey: "resultReviewThree",
     image: ASSET.resultReviewThree,
   },
@@ -108,7 +106,7 @@ const painPoints = [
 const modelSteps = [
   ["B", "Better Taste", "40 กลิ่นให้เลือก ทั้งผลไม้ มิ้นท์ ขนม และดอกไม้"],
   ["O", "One Press", "ใช้แค่ 3 วินาที ใส่เม็ด กด แล้วเสร็จ"],
-  ["O", "Outstanding Save", "ประหยัด 931 บาทต่อเดือน หรือ 11,172 บาทต่อปี"],
+  ["O", "On-the-go", "ขนาดกะทัดรัด พกง่าย และเปลี่ยนกลิ่นได้ตามสไตล์"],
 ];
 
 const faqItems = [
@@ -280,7 +278,7 @@ function AppHeader({ onMenu, onLineClick }: { onMenu: () => void; onLineClick: (
         <a href="#offers">แพ็กเกจ</a>
         <a href="#faq">คำถามที่พบบ่อย</a>
       </nav>
-      <a className="header-cta" href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" onClick={onLineClick}>ดูรายละเอียด / สอบถามและสั่งซื้อผ่าน LINE</a>
+      <a className="header-cta" href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" onClick={onLineClick}>แอด LINE รับโปร</a>
       <button className="mobile-menu" type="button" onClick={onMenu} aria-label="เปิดเมนู"><Menu size={21} /></button>
     </header>
   );
@@ -308,7 +306,7 @@ export default function Home() {
         extras: pkg.extrasLabel,
         scent: pkg.scentLabel,
         featured: pkg.code === "B",
-        imageUrl: localAssetUrl(pkg.imageUrl),
+        imageUrl: localAssetUrl(pkg.imageUrl) || localPackageImages[pkg.code] || null,
       }))
     : packages.map((pkg) => ({ ...pkg, imageUrl: localPackageImages[pkg.code] || null }));
   const displayScents = catalogQuery.data?.scents?.length ? catalogQuery.data.scents : sampleScents;
@@ -475,7 +473,7 @@ export default function Home() {
           <a href="#reviews" onClick={() => setIsMenuOpen(false)}>รีวิวลูกค้า</a>
           <a href="#offers" onClick={() => setIsMenuOpen(false)}>แพ็กเกจ</a>
           <a href="#faq" onClick={() => setIsMenuOpen(false)}>คำถามที่พบบ่อย</a>
-          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event); }}>ดูรายละเอียด / สอบถามและสั่งซื้อผ่าน LINE</a>
+          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event); }}>รับโปรเริ่มต้น 299 บาททาง LINE</a>
         </div>
       )}
 
@@ -484,26 +482,27 @@ export default function Home() {
           <div className="hero-orb orb-one" />
           <div className="hero-orb orb-two" />
           <div className="hero-content reveal">
+            <p className="eyebrow"><span /> อุปกรณ์อัดเม็ดบีทแบบพกพา <span /></p>
             <p className="boombox-label">BOOMBOX TH</p>
-            <h1>วิธีประหยัดค่าบุหรี่<br /><em>931 บาท/เดือน</em><br />ด้วยเครื่องอัดเม็ดบีทพกพา 40 กลิ่น</h1>
+            <h1>เบื่อกลิ่นบุหรี่เดิม ๆ ใช่ไหม?<br /><em>เปลี่ยนกลิ่นใหม่ได้ใน 3 วินาที</em></h1>
+            <p className="hero-subtitle">เลือกกลิ่นใหม่ได้กว่า 40 กลิ่น ใช้งานง่าย พกสะดวก และเก็บเงินปลายทางทั่วไทย</p>
             <div className="hero-video-gallery" aria-label="วิดีโอ BOOMBOX TH">
               {[mediaUrl("heroVideoOne", ASSET.heroVideoOne), mediaUrl("heroVideoTwo", ASSET.heroVideoTwo), mediaUrl("heroVideoThree", ASSET.heroVideoThree)].map((video, index) => <HeroVideoCard key={video} src={video} index={index} poster={mediaByKey[`heroPoster${index + 1}`] || HERO_POSTERS[index]} />)}
             </div>
             <p className="video-scroll-hint"><span>ปัดซ้ายเพื่อดูคลิปถัดไป</span> <ArrowRight size={14} /></p>
-            <div className="countdown-wrap">
-              <p className="countdown-title"><Clock3 size={17} /> ราคาพิเศษ 7 วันเท่านั้น!</p>
-              <div className="countdown-grid" aria-label="เวลาที่เหลือของโปรโมชั่น">
-                <div className="countdown-box"><strong>{pad(timeLeft.days)}</strong><span>วัน</span></div>
-                <div className="countdown-box"><strong>{pad(timeLeft.hours)}</strong><span>ชม.</span></div>
-                <div className="countdown-box"><strong>{pad(timeLeft.minutes)}</strong><span>นาที</span></div>
-                <div className="countdown-box"><strong>{pad(timeLeft.seconds)}</strong><span>วินาที</span></div>
-              </div>
-            </div>
-
             <div className="hero-actions offer-actions">
-              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ดูรายละเอียด / สอบถามและสั่งซื้อผ่าน LINE <ArrowRight size={17} /></a>
-              <p className="hero-note">ทีมงานพาไปดูสินค้าและช่วยเลือกแพ็กเกจใน LINE</p>
+              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE <ArrowRight size={17} /></a>
+              <p className="hero-note">ไม่ต้องโอนก่อน · ทีมงานช่วยเลือกกลิ่นและแพ็กเกจให้ฟรี</p>
             </div>
+          </div>
+        </section>
+
+        <section className="trust-strip" aria-label="ความมั่นใจในการสั่งซื้อ">
+          <div className="container trust-strip-grid">
+            <div><Check size={18} /><span><strong>เก็บเงินปลายทาง</strong><small>ไม่ต้องโอนก่อน</small></span></div>
+            <div><Check size={18} /><span><strong>ส่งฟรี 2 ชุดขึ้นไป</strong><small>ทั่วไทย</small></span></div>
+            <div><ShieldCheck size={18} /><span><strong>เปลี่ยนคืนได้ 7 วัน</strong><small>ตามเงื่อนไขร้าน</small></span></div>
+            <div><Check size={18} /><span><strong>ปรึกษาฟรีทาง LINE</strong><small>ช่วยเลือกกลิ่นได้</small></span></div>
           </div>
         </section>
 
@@ -523,8 +522,8 @@ export default function Home() {
           <div className="container">
             <div className="offer-intro">
               <p className="eyebrow"><Clock3 size={14} /> LIMITED LAUNCH OFFER</p>
-              <h2>เลือกแพ็กเกจที่ใช่ เริ่มประหยัดวันนี้</h2>
-              <p className="offer-deadline"><Clock3 size={15} /> ราคาพิเศษ 7 วันเท่านั้น!</p>
+              <h2>เลือกแพ็กเกจที่เหมาะกับคุณ</h2>
+              <p className="offer-deadline">ทุกชุดเก็บเงินปลายทาง · ไม่ต้องโอนก่อน</p>
             </div>
             <p className="order-helper"><strong>วิธีไปต่อ:</strong> เลือกแพ็กเกจ → ดูรายละเอียด → สอบถามและสั่งซื้อผ่าน LINE</p>
             <div className="pricing-grid package-grid">
@@ -532,7 +531,7 @@ export default function Home() {
                 <article className={`price-card package-card ${pkg.featured ? "featured-package" : ""}`} key={pkg.code}>
                   {pkg.featured && <div className="recommended"><Sparkles size={13} /> คุ้มค่า</div>}
                   <div className="package-topline"><span>แพ็กเกจ {pkg.code}</span>{pkg.featured && <span>แนะนำ</span>}</div>
-                  <div className="package-image-slot">{pkg.imageUrl ? <img src={pkg.imageUrl} alt={`รูปโปรโมชั่นแพ็กเกจ ${pkg.code}`} loading="lazy" decoding="async" /> : <><ImagePlus size={24} /><span>อัปโหลดรูปแพ็กเกจได้จากหลังบ้าน</span></>}</div>
+                  <div className="package-image-slot">{pkg.imageUrl ? <img src={pkg.imageUrl} alt={`รูปสินค้าจริงแพ็กเกจ ${pkg.code}`} loading="lazy" decoding="async" /> : <div className="package-image-fallback"><Zap size={24} /><span>ภาพแพ็กเกจ {pkg.code}</span></div>}</div>
                   <h3>{pkg.name}</h3>
                   <div className="old-price">฿{pkg.oldPrice}</div>
                   <div className="price"><small>฿</small>{pkg.price}</div>
@@ -570,18 +569,9 @@ export default function Home() {
                 <span><Check size={16} /> เปลี่ยนคืนได้ 7 วัน ไม่พอใจคืนได้</span>
               </div>
             </div>
-            <div className="offer-countdown countdown-wrap">
-              <p className="countdown-title"><Clock3 size={17} /> ราคานี้หมดใน:</p>
-              <div className="countdown-grid">
-                <div className="countdown-box"><strong>{String(timeLeft.days).padStart(2, "0")}</strong><span>วัน</span></div>
-                <div className="countdown-box"><strong>{String(timeLeft.hours).padStart(2, "0")}</strong><span>ชม.</span></div>
-                <div className="countdown-box"><strong>{String(timeLeft.minutes).padStart(2, "0")}</strong><span>นาที</span></div>
-                <div className="countdown-box"><strong>{String(timeLeft.seconds).padStart(2, "0")}</strong><span>วินาที</span></div>
-              </div>
-            </div>
             <div className="offer-final-cta">
-              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ดูรายละเอียด / สอบถามและสั่งซื้อผ่าน LINE <ArrowRight size={17} /></a>
-              <p>ไม่ต้องสั่งผ่านเว็บนี้ ทีมงานจะพาไปยังหน้าสินค้าใน LINE</p>
+              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE <ArrowRight size={17} /></a>
+              <p>ยังเลือกไม่ได้? ทัก LINE ให้ทีมงานช่วยแนะนำฟรี</p>
             </div>
             {orderNotice && <p className="order-notice"><Check size={15} /> {orderNotice}</p>}
           </div>
@@ -598,7 +588,7 @@ export default function Home() {
                   <div className="review-head">
                     <div className="review-avatar">{review.name.slice(0, 1)}</div>
                     <div><strong>{review.name}</strong><span>ลูกค้า BOOMBOX TH</span></div>
-                    <span className="verified-badge" aria-label="Verified Buyer"><Check size={12} /> Verified Buyer</span>
+                    <span className="verified-badge" aria-label="รีวิวจากลูกค้า"><Check size={12} /> ลูกค้ารีวิว</span>
                   </div>
                   <div className="review-stars" aria-label="5 ดาว">★★★★★</div>
                   <p>{review.text}</p>
@@ -614,8 +604,8 @@ export default function Home() {
             <SectionHeading accent="BoomBox TH">เบื้องหลัง</SectionHeading>
             <div className="story-copy">
               <p>เริ่มจากความเบื่อ<br />จ่ายค่าบุหรี่เดือนละเกือบ <strong className="story-highlight">2,000 บาท</strong><br />กับรสเดิม ๆ มาตั้ง <strong className="story-highlight">5 ปี</strong></p>
-              <p className="accent-copy">จนเจอวิธีที่ใช่<br /><strong className="story-highlight">บุหรี่ซอง 60 บาท</strong> หอมกว่าซอง <strong className="story-highlight">165 บาท</strong><br />ประหยัดได้ <strong className="story-highlight">931 บาททุกเดือน</strong></p>
-              <p>วันนี้เอามาให้ทุกคนได้ลอง<br />เริ่มต้นเพียง <strong className="story-highlight">299 บาท</strong><br />คืนทุนตั้งแต่เดือนแรก</p>
+              <p className="accent-copy">จนเจอวิธีที่ใช่<br /><strong className="story-highlight">เพิ่มตัวเลือกกลิ่น</strong> ให้วันเดิม ๆ มีอะไรใหม่ขึ้น</p>
+              <p>วันนี้เอามาให้ทุกคนได้ลอง<br />เริ่มต้นเพียง <strong className="story-highlight">299 บาท</strong><br />จ่ายปลายทาง ไม่ต้องโอนก่อน</p>
             </div>
             <figure className="story-image boombox-story-image"><img src={mediaUrl("boomboxStory", ASSET.boomboxStory)} alt="ภาพสินค้า BoomBox TH และกลิ่นที่มีให้เลือก" loading="lazy" decoding="async" /></figure>
           </div>
@@ -656,7 +646,7 @@ export default function Home() {
         <section className="model-section">
           <div className="container narrow">
             <SectionHeading accent="BoomBox">เปลี่ยนบุหรี่ซอง 60 บาท</SectionHeading>
-            <p className="center-intro">ให้หอมกว่าซอง 165 บาท และประหยัดกว่าในทุกเดือน</p>
+            <p className="center-intro">เลือกกลิ่นใหม่ได้ง่าย ใช้เวลาไม่นาน และพกไปได้ทุกวัน</p>
             <div className="model-grid">
               {modelSteps.map(([letter, title, text]) => (
                 <article className="model-card" key={`${letter}-${title}`}>
@@ -698,7 +688,7 @@ export default function Home() {
             </div>
             <div className="faq-cta">
               <p>ยังเลือกไม่ได้? ทีมงานช่วยแนะนำให้ฟรี</p>
-            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ดูรายละเอียด / สอบถามและสั่งซื้อผ่าน LINE <ArrowRight size={17} /></a>
+            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE <ArrowRight size={17} /></a>
             </div>
           </div>
         </section>
@@ -708,7 +698,7 @@ export default function Home() {
             <ShieldCheck size={30} className="trust-icon" />
             <h2>มีคำถาม? คุยกับทีม BoomBox TH ได้เลย</h2>
             <p>ทีมงานพร้อมให้คำแนะนำเรื่องกลิ่น แพ็กเกจ และวิธีใช้งาน<br />ทัก LINE มาได้ตลอด เรายินดีช่วยเลือกแพ็กเกจที่เหมาะกับคุณ</p>
-            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`secondary-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ดูรายละเอียด / สอบถามและสั่งซื้อผ่าน LINE</a>
+            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE</a>
           </div>
         </section>
       </main>
@@ -721,7 +711,7 @@ export default function Home() {
               {(() => {
                 const dedicatedImage = deviceImageUrls[selectedColor];
                 const previewTone = selectedPackage.code === "D" ? "set" : selectedColor === "สีดำ" ? "black" : selectedColor === "สีขาว" ? "white" : selectedColor === "สีเงิน" ? "silver" : "blue";
-                return dedicatedImage ? <img className={`device-photo device-tone-${previewTone}`} src={dedicatedImage} alt={`ตัวเครื่อง${selectedColor}`} /> : <div className={`device-preview-fallback device-tone-${previewTone}`}>{selectedPackage.imageUrl && <img className="device-photo package-artwork-fallback" src={selectedPackage.imageUrl} alt={`ภาพอ้างอิง Set ${selectedPackage.code}`} />}<div className="device-preview-badge"><div className="device-silhouette"><Zap size={25} /></div><strong>{selectedPackage.code === "D" ? "เครื่อง 3 สี" : selectedColor}</strong><small>ภาพเครื่องจริงจะแสดงเมื่ออัปโหลดไฟล์สีนี้</small></div></div>;
+                return dedicatedImage ? <img className={`device-photo device-tone-${previewTone}`} src={dedicatedImage} alt={`ตัวเครื่อง${selectedColor}`} /> : <div className={`device-preview-fallback device-tone-${previewTone}`}>{selectedPackage.imageUrl && <img className="device-photo package-artwork-fallback" src={selectedPackage.imageUrl} alt={`ภาพอ้างอิง Set ${selectedPackage.code}`} />}<div className="device-preview-badge"><div className="device-silhouette"><Zap size={25} /></div><strong>{selectedPackage.code === "D" ? "เครื่อง 3 สี" : selectedColor}</strong><small>ภาพอ้างอิงของแพ็กเกจ · สอบถามรายละเอียดกับทีมงานได้ทาง LINE</small></div></div>;
               })()}
             </div>
             <div className="package-modal-content">
@@ -775,8 +765,8 @@ export default function Home() {
         </div>
       )}
 
-      <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="ดูรายละเอียด / สอบถามและสั่งซื้อผ่าน LINE" onClick={handleLineCtaClick}>
-        <strong>LINE</strong><span>ดูรายละเอียด / สั่งซื้อ</span>
+      <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="รับโปรเริ่มต้น 299 บาททาง LINE" onClick={handleLineCtaClick}>
+        <strong>LINE</strong><span>รับโปร 299 บาท</span>
       </a>
 
       {lineHandoffNotice && <div className={`line-handoff-popup ${lineHandoffNotice === "success" ? "is-success" : lineHandoffNotice === "loading" ? "is-loading" : "is-error"}`} role="status" aria-live="assertive">
