@@ -114,7 +114,7 @@ const faqItems = [
   ["ใช้งานยากไหม?", "ใช้งานง่าย แค่ใส่เม็ดกลิ่นลงในเครื่อง กด และรอประมาณ 3 วินาที ก็พร้อมใช้งาน"],
   ["เลือกกลิ่นได้อย่างไร?", "เลือกจากกลิ่นฮิตบนหน้าเว็บ หรือทัก LINE เพื่อให้ทีมงานช่วยแนะนำกลิ่นตามสไตล์ที่ชอบได้ฟรี"],
   ["สั่งซื้อและชำระเงินอย่างไร?", "กดปุ่มสั่งแพ็กเกจที่ต้องการ ระบบจะพาไป LINE @425syacj พร้อมคัดลอกข้อความแพ็กเกจไว้ให้วางส่งกับทีมงานได้ทันที"],
-  ["Set A ส่งอย่างไรและจ่ายเงินแบบไหน?", "Set A ส่งฟรี และเก็บเงินปลายทางได้ ไม่ต้องโอนก่อน หากต้องการทราบเงื่อนไขของ Set อื่น ทักทีมงานทาง LINE ได้เลย"],
+  ["ส่งอย่างไรและจ่ายเงินแบบไหน?", "ทุก Set ส่งฟรี และเก็บเงินปลายทางได้ ไม่ต้องโอนก่อน หากต้องการให้ทีมงานช่วยเลือก Set หรือกลิ่น ทัก LINE ได้เลย"],
 ];
 
 const sampleScents = [
@@ -168,16 +168,15 @@ const localPackageImages: Record<string, string> = {
 
 const packages = [
   { code: "A", name: "เริ่มต้น", oldPrice: "599", price: "299", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "เม็ดรวม 100 เม็ด · 40 กลิ่น", scent: "สุ่มกลิ่นรวม", featured: true },
-  { code: "B", name: "คุ้มค่า", oldPrice: "699", price: "389", device: "เครื่อง", extras: "+200 เม็ด", scent: "เลือกกลิ่น", featured: true },
-  { code: "C", name: "จัดเต็ม", oldPrice: "899", price: "499", device: "เครื่อง", extras: "+400 เม็ด", scent: "เลือกกลิ่น" },
-  { code: "D", name: "VIP", oldPrice: "1,099", price: "649", device: "เครื่องพร้อมไฟแช็ก 3 เครื่อง", extras: "+600 เม็ด", scent: "เลือกได้ 6 กล่อง" },
+  { code: "B", name: "คุ้มค่า", oldPrice: "699", price: "389", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "200 เม็ด · 2 ตลับ", scent: "เลือกได้ 2 กลิ่น" },
+  { code: "C", name: "จัดเต็ม", oldPrice: "899", price: "499", device: "เครื่อง 1 เครื่อง · เลือกสีดำ/ขาว", extras: "400 เม็ด · 4 ตลับ", scent: "เลือกได้ 4 กลิ่น" },
+  { code: "D", name: "VIP", oldPrice: "1,099", price: "649", device: "เครื่อง 1 เครื่อง · เลือกดำ/เงิน/ฟ้า", extras: "600 เม็ด · 6 ตลับ", scent: "เลือกได้ 6 กลิ่น" },
 ];
-
 const packageDetails = {
   A: { boxes: 1, beads: 100, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: false, note: "เม็ดรวม 40 กลิ่น สุ่มกลิ่น เลือกกลิ่นไม่ได้" },
   B: { boxes: 2, beads: 200, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: true, note: "เลือกกลิ่นได้ 2 กล่อง และเลือกกลิ่นซ้ำได้" },
   C: { boxes: 4, beads: 400, colors: ["สีดำ", "สีขาว"], selectableColor: true, selectableScent: true, note: "เลือกกลิ่นได้ 4 กล่อง และเลือกกลิ่นซ้ำได้" },
-  D: { boxes: 6, beads: 600, colors: ["สีเงิน", "สีฟ้า", "สีดำ"], selectableColor: false, selectableScent: true, note: "เครื่องพร้อมไฟแช็กในตัว 3 เครื่อง: สีเงิน + สีฟ้า + สีดำ" },
+  D: { boxes: 6, beads: 600, colors: ["สีดำ", "สีเงิน", "สีฟ้า"], selectableColor: true, selectableScent: true, note: "เลือกสีเครื่องได้ 1 สี และเลือกกลิ่นได้ 6 กลิ่น" },
 } as const;
 
 const deviceImageFallbacks: Record<string, string | null> = {
@@ -312,7 +311,7 @@ export default function Home() {
     const detail = packageDetails[pkg.code as keyof typeof packageDetails];
     trackEngagement("package_view", pkg.code);
     setSelectedPackage(pkg);
-    setSelectedColor(pkg.code === "D" ? detail.colors.join(" + ") : detail.colors[0]);
+    setSelectedColor(detail.colors[0]);
     setSelectedScents(detail.selectableScent ? Array.from({ length: detail.boxes }, () => displayScents[0]?.name ?? "เลือกกลิ่น") : []);
   };
 
@@ -469,7 +468,7 @@ export default function Home() {
         <section className="trust-strip" aria-label="ความมั่นใจในการสั่งซื้อ">
           <div className="container trust-strip-grid">
             <div><Check size={18} /><span><strong>เก็บเงินปลายทาง</strong><small>ไม่ต้องโอนก่อน</small></span></div>
-            <div><Check size={18} /><span><strong>Set A ส่งฟรี</strong><small>ทั่วไทย</small></span></div>
+            <div><Check size={18} /><span><strong>ทุก Set ส่งฟรี</strong><small>ทั่วไทย</small></span></div>
             <div><ShieldCheck size={18} /><span><strong>เปลี่ยนคืนได้ 7 วัน</strong><small>ตามเงื่อนไขร้าน</small></span></div>
             <div><Check size={18} /><span><strong>ปรึกษาฟรีทาง LINE</strong><small>ช่วยเลือกกลิ่นได้</small></span></div>
           </div>
@@ -532,13 +531,13 @@ export default function Home() {
             <div className="offer-intro">
               <p className="eyebrow">เริ่มต้น 299 บาท · เลือก Set ได้ตามการใช้งาน</p>
               <h2>เลือกแพ็กเกจที่เหมาะกับคุณ</h2>
-              <p className="offer-deadline">Set A ส่งฟรี · เก็บเงินปลายทาง · ไม่ต้องโอนก่อน</p>
+              <p className="offer-deadline">ทุก Set ส่งฟรี · เก็บเงินปลายทาง · ไม่ต้องโอนก่อน</p>
             </div>
             <p className="order-helper"><strong>วิธีไปต่อ:</strong> เลือกแพ็กเกจ → ดูของที่ได้รับ → ส่งข้อมูลให้ทีมงานใน LINE</p>
             <div className="pricing-grid package-grid">
               {displayPackages.map((pkg) => (
                 <article className={`price-card package-card ${pkg.featured ? "featured-package" : ""}`} key={pkg.code}>
-                  {pkg.featured && <div className="recommended"><Sparkles size={13} /> คุ้มค่า</div>}
+                  {pkg.featured && <div className="recommended"><Sparkles size={13} /> {pkg.code === "A" ? "เริ่มต้นง่าย" : "คุ้มค่า"}</div>}
                   <div className="package-topline"><span>แพ็กเกจ {pkg.code}</span>{pkg.featured && <span>แนะนำ</span>}</div>
                   <div className="package-image-slot">{pkg.imageUrl ? <img src={pkg.imageUrl} alt={`รูปสินค้าจริงแพ็กเกจ ${pkg.code}`} loading="lazy" decoding="async" /> : <div className="package-image-fallback"><Zap size={24} /><span>ภาพแพ็กเกจ {pkg.code}</span></div>}</div>
                   <h3>{pkg.name}</h3>
@@ -560,8 +559,8 @@ export default function Home() {
                   <thead><tr><th>รายละเอียด</th>{displayPackages.map((pkg) => <th key={`compare-head-${pkg.code}`}>Set {pkg.code}<small>{pkg.name}</small></th>)}</tr></thead>
                   <tbody>
                     <tr><th>ราคาโปร</th>{displayPackages.map((pkg) => <td key={`compare-price-${pkg.code}`} className={pkg.featured ? "is-highlight" : ""}>฿{pkg.price}</td>)}</tr>
-                    <tr><th>เครื่อง</th><td>1 เครื่อง</td><td>1 เครื่อง</td><td>1 เครื่อง</td><td>3 เครื่อง พร้อมไฟแช็ก</td></tr>
-                    <tr><th>สีเครื่อง</th><td>ดำ / ขาว</td><td>ดำ / ขาว</td><td>ดำ / ขาว</td><td>เงิน / ฟ้า / ดำ</td></tr>
+                    <tr><th>เครื่อง</th><td>1 เครื่อง</td><td>1 เครื่อง</td><td>1 เครื่อง</td><td>1 เครื่อง</td></tr>
+                    <tr><th>สีเครื่อง</th><td>ดำ / ขาว</td><td>ดำ / ขาว</td><td>ดำ / ขาว</td><td>ดำ / เงิน / ฟ้า</td></tr>
                     <tr><th>เม็ดบีท</th><td>100 เม็ด<br /><small>1 กล่อง</small></td><td>200 เม็ด<br /><small>2 กล่อง</small></td><td>400 เม็ด<br /><small>4 กล่อง</small></td><td>600 เม็ด<br /><small>6 กล่อง</small></td></tr>
                     <tr><th>เลือกกลิ่น</th><td>สุ่มกลิ่นรวม</td><td>เลือกได้ 2 กล่อง<br /><small>ซ้ำได้</small></td><td>เลือกได้ 4 กล่อง<br /><small>ซ้ำได้</small></td><td>เลือกได้ 6 กล่อง<br /><small>ซ้ำได้</small></td></tr>
                   </tbody>
@@ -574,7 +573,7 @@ export default function Home() {
                 <span><Check size={16} /> เครื่องอัดเม็ดบีท ใช้ 3 วิ จบ</span>
                 <span><Check size={16} /> 40 กลิ่นให้เลือก ทั้งผลไม้ มิ้นท์ ขนม และดอกไม้</span>
                 <span><Check size={16} /> ปรึกษาฟรีทาง LINE ทีมงานตอบ 24 ชม.</span>
-                <span><Check size={16} /> Set A ส่งฟรีทั่วไทย · เก็บเงินปลายทางได้</span>
+                <span><Check size={16} /> ทุก Set ส่งฟรีทั่วไทย · เก็บเงินปลายทางได้</span>
                 <span><Check size={16} /> เปลี่ยนคืนได้ 7 วัน ไม่พอใจคืนได้</span>
               </div>
             </div>
@@ -668,17 +667,10 @@ export default function Home() {
               <p className="package-modal-summary">{selectedDetail.beads} เม็ด · {selectedDetail.boxes} กล่อง · {selectedDetail.note}</p>
 
               <div className="package-option-group">
-                <h3>{selectedPackage.code === "D" ? "เครื่องใน Set D" : "ขั้นตอนที่ 1 · เลือกสีเครื่อง"}</h3>
-                {selectedPackage.code === "D" ? (
-                  <div className="package-fixed-colors">
-                    {selectedDetail.colors.map((color) => <span className="package-color-chip is-fixed" key={color}><Check size={14} /> {color}</span>)}
-                    <small>ได้รับครบทั้ง 3 เครื่อง พร้อมไฟแช็กในตัว</small>
-                  </div>
-                ) : (
-                  <div className="package-color-options">
-                    {selectedDetail.colors.map((color) => <button type="button" key={color} className={`package-color-choice ${selectedColor === color ? "is-selected" : ""}`} onClick={() => setSelectedColor(color)}><span className={`color-swatch ${color === "สีดำ" ? "black" : "white"}`} />{color}<span className="choice-check">{selectedColor === color ? "✓" : ""}</span></button>)}
-                  </div>
-                )}
+                <h3>ขั้นตอนที่ 1 · เลือกสีเครื่อง</h3>
+                <div className="package-color-options">
+                  {selectedDetail.colors.map((color) => <button type="button" key={color} className={`package-color-choice ${selectedColor === color ? "is-selected" : ""}`} onClick={() => setSelectedColor(color)}><span className={`color-swatch ${color === "สีดำ" ? "black" : color === "สีเงิน" ? "silver" : color === "สีฟ้า" ? "blue" : "white"}`} />{color}<span className="choice-check">{selectedColor === color ? "✓" : ""}</span></button>)}
+                </div>
               </div>
 
               {selectedDetail.selectableScent ? (
