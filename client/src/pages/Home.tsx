@@ -234,7 +234,7 @@ function SectionHeading({ children, accent }: { children: string; accent: string
   );
 }
 
-function AppHeader({ onMenu, onLineClick }: { onMenu: () => void; onLineClick: (event: MouseEvent<HTMLAnchorElement>) => void }) {
+function AppHeader({ onMenu, onLineClick }: { onMenu: () => void; onLineClick: (event: MouseEvent<HTMLAnchorElement>, packageCode?: string, ctaPosition?: string) => void }) {
   return (
     <header className="site-header">
       <a href="#top" className="brand" aria-label="BoomBox TH home">
@@ -250,7 +250,7 @@ function AppHeader({ onMenu, onLineClick }: { onMenu: () => void; onLineClick: (
         <a href="#offers">แพ็กเกจ</a>
         <a href="#faq">คำถามที่พบบ่อย</a>
       </nav>
-      <a className="header-cta" href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" onClick={onLineClick}>คุยกับทีมงานใน LINE</a>
+      <a className="header-cta" href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" onClick={(event) => onLineClick(event, undefined, "header")}>คุยกับทีมงานใน LINE</a>
       <button className="mobile-menu" type="button" onClick={onMenu} aria-label="เปิดเมนู"><Menu size={21} /></button>
     </header>
   );
@@ -298,12 +298,24 @@ export default function Home() {
     if (eventName === "line_click") trackMetaEvent("Contact", { content_name: packageCode ? `BoomBox Set ${packageCode}` : "BoomBox LINE" });
   };
 
-  const handleLineCtaClick = (event: MouseEvent<HTMLAnchorElement>, packageCode?: string) => {
+  const trackLineClickUnloadSafe = (packageCode?: string, deviceColor?: string, scents?: string[], ctaPosition = "unknown") => {
+    const params = new URLSearchParams(window.location.search);
+    const utmSource = params.get("utm_source") ?? "direct";
+    const source = `${utmSource}|cta:${ctaPosition}`.slice(0, 120);
+    const payload = JSON.stringify({ eventName: "line_click", packageCode, deviceColor, scentSummary: scents?.join(" | "), source });
+    const beaconSent = typeof navigator.sendBeacon === "function" && navigator.sendBeacon("/api/analytics/line-click", new Blob([payload], { type: "application/json" }));
+    if (!beaconSent) {
+      void fetch("/api/analytics/line-click", { method: "POST", headers: { "Content-Type": "application/json" }, body: payload, keepalive: true }).catch(() => undefined);
+    }
+    trackMetaEvent("Contact", { content_name: packageCode ? `BoomBox Set ${packageCode}` : "BoomBox LINE" });
+  };
+
+  const handleLineCtaClick = (event: MouseEvent<HTMLAnchorElement>, packageCode?: string, ctaPosition = "unknown") => {
     event.preventDefault();
     if (lineCtaLoading) return;
     setLineCtaLoading(true);
     setLineHandoffNotice("loading");
-    trackEngagement("line_click", packageCode);
+    trackLineClickUnloadSafe(packageCode, undefined, undefined, ctaPosition);
     window.location.assign(LINE_ADD_FRIEND_URL);
   };
 
@@ -333,7 +345,7 @@ export default function Home() {
       note: detail.note,
     };
     trackEngagement("package_select", pkg.code, selectedColor, selectedScents);
-    trackEngagement("line_click", pkg.code, selectedColor, selectedScents);
+    trackLineClickUnloadSafe(pkg.code, selectedColor, selectedScents, `package_${pkg.code}`);
     const lineUrl = createLineOrderUrl(pkg, selection);
     setLineHandoffNotice("loading");
     try {
@@ -442,7 +454,7 @@ export default function Home() {
           <a href="#reviews" onClick={() => setIsMenuOpen(false)}>รีวิวลูกค้า</a>
           <a href="#offers" onClick={() => setIsMenuOpen(false)}>แพ็กเกจ</a>
           <a href="#faq" onClick={() => setIsMenuOpen(false)}>คำถามที่พบบ่อย</a>
-          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event); }}>ขอคำแนะนำฟรีใน LINE</a>
+          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event, undefined, "mobile_menu"); }}>ขอคำแนะนำฟรีใน LINE</a>
         </div>
       )}
 
@@ -456,13 +468,13 @@ export default function Home() {
             <h1>อุปกรณ์เปลี่ยนกลิ่นจากเม็ดบีท<br /><em>พกง่าย ใช้ได้ใน 3 วินาที</em></h1>
             <p className="hero-subtitle">เลือกกลิ่นจากเม็ดรวม 40 กลิ่น ใส่เม็ด แล้วกดใช้งานได้ทันที — เริ่มต้น 299 บาท ส่งฟรี เก็บเงินปลายทาง</p>
             <p className="hero-step-line"><strong>เลือกสีเครื่อง</strong><span>→</span><strong>ใส่เม็ดรวม</strong><span>→</span><strong>กดใช้งาน</strong></p>
-            <div className="hero-offer-card">
-              <div><strong>ยังไม่เคยลอง? เริ่มจาก Set A ฿299</strong><span>ได้เครื่อง 1 เครื่อง เลือกสีดำ/ขาว + เม็ดรวม 100 เม็ด (สุ่ม 40 กลิ่น)</span></div>
+            <div className="hero-offer-card lead-magnet-card">
+              <div><strong><span className="lead-magnet-badge">ฟรี</span> รับรายการ 40 กลิ่น + ช่วยเลือก Set</strong><span>ทัก LINE รับรายการกลิ่นและคำแนะนำฟรี พร้อมดู Set A ฿299 ได้เครื่อง 1 เครื่อง + เม็ดรวม 100 เม็ด</span></div>
               <span className="hero-offer-price">ส่งฟรี</span>
             </div>
             <div className="hero-actions offer-actions">
-              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ให้ทีมงานช่วยเริ่มที่ Set A <ArrowRight size={17} /></a>
-              <p className="hero-note">กดแล้วเปิด LINE ทันที · ไม่ต้องโอนก่อน · ทีมงานช่วยตอบให้ฟรี</p>
+              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => handleLineCtaClick(event, undefined, "hero")}>รับรายการกลิ่นฟรีใน LINE <ArrowRight size={17} /></a>
+              <p className="hero-note">ไม่ต้องโอนก่อน · ทักมาถามก่อนได้ · เปิด LINE ทันที</p>
             </div>
             <div className="hero-video-gallery" aria-label="วิดีโอ BOOMBOX TH">
               {[mediaUrl("heroVideoOne", ASSET.heroVideoOne), mediaUrl("heroVideoTwo", ASSET.heroVideoTwo), mediaUrl("heroVideoThree", ASSET.heroVideoThree)].map((video, index) => <HeroVideoCard key={video} src={video} index={index} poster={mediaByKey[`heroPoster${index + 1}`] || HERO_POSTERS[index]} />)}
@@ -709,7 +721,7 @@ export default function Home() {
         </div>
       )}
 
-      <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="ขอคำแนะนำฟรีใน LINE" onClick={handleLineCtaClick}>
+      <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="ขอคำแนะนำฟรีใน LINE" onClick={(event) => handleLineCtaClick(event, undefined, "sticky_mobile")}>
         <strong>LINE</strong><span>ขอคำแนะนำฟรี</span>
       </a>
 

@@ -6,6 +6,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
+import { createBoomboxEvent } from "../db";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 
@@ -36,6 +37,23 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  // Unload-safe analytics endpoint used by LINE CTA clicks. It accepts
+  // application/json from navigator.sendBeacon and keepalive fetch alike.
+  app.post("/api/analytics/line-click", async (req, res) => {
+    const input = req.body as Record<string, unknown> | undefined;
+    const packageCode = typeof input?.packageCode === "string" ? input.packageCode.slice(0, 4) : undefined;
+    const deviceColor = typeof input?.deviceColor === "string" ? input.deviceColor.slice(0, 120) : undefined;
+    const scentSummary = typeof input?.scentSummary === "string" ? input.scentSummary.slice(0, 2000) : undefined;
+    const source = typeof input?.source === "string" ? input.source.slice(0, 120) : undefined;
+    try {
+      await createBoomboxEvent({ eventName: "line_click", packageCode, deviceColor, scentSummary, source });
+      res.status(204).end();
+    } catch (error) {
+      console.warn("[Analytics] Failed to persist LINE click:", error);
+      // The navigation should never be blocked by analytics.
+      res.status(204).end();
+    }
+  });
   // tRPC API
   app.use(
     "/api/trpc",
