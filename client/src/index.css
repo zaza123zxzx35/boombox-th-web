@@ -86,6 +86,11 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 .countdown-box span { margin-top: 8px; color: var(--muted); font-size: 13px; }
 .line-button { min-width: min(360px, 100%); }
 .hero-note { width: 100%; margin: 8px 0 0; color: var(--muted-2); font-size: 13px; }
+.hero-offer-card { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: min(640px, 100%); margin: 24px auto 0; padding: 14px 17px; border: 1px solid rgba(52,224,127,.32); border-radius: 16px; background: linear-gradient(100deg, rgba(34,197,94,.12), rgba(34,197,94,.035)); text-align: left; }
+.hero-offer-card strong, .hero-offer-card span { display: block; }
+.hero-offer-card strong { color: var(--ink); font-family: Kanit, sans-serif; font-size: 17px; line-height: 1.25; }
+.hero-offer-card div span { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.hero-offer-price { flex: 0 0 auto; color: var(--green-bright); font-family: Kanit, sans-serif; font-size: 20px; font-weight: 800; white-space: nowrap; }
 .primary-button, .secondary-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 13px 24px; border-radius: 999px; font-weight: 700; }
 .primary-button { color: #052b12; background: linear-gradient(135deg, var(--green-bright), var(--green) 55%, #15803d); box-shadow: 0 18px 40px -14px rgba(34,197,94,.7); }
 .secondary-button { border: 1px solid rgba(242,239,233,.24); background: transparent; color: var(--ink); }
@@ -213,6 +218,10 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
   .boombox-label { margin-bottom: 12px; font-size: 11px; }
   h1 { font-size: clamp(34px, 10vw, 50px); }
   .hero-subtitle { font-size: 13px; }
+  .hero-offer-card { align-items: flex-start; gap: 10px; margin-top: 19px; padding: 12px 13px; }
+  .hero-offer-card strong { font-size: 15px; }
+  .hero-offer-card div span { font-size: 11px; }
+  .hero-offer-price { font-size: 17px; }
   .desktop-only { display: none; }
   .video-frame { margin-top: 26px; border-radius: 17px; }
   .video-overlay .play-button { width: 58px; height: 58px; }
@@ -594,7 +603,9 @@ h1 em { color: var(--red); font-style: normal; text-shadow: 0 0 35px rgba(224,43
 .floating-line-cta strong { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .04em; }
 .floating-line-cta span { font-size: 13px; font-weight: 600; }
 @media (max-width: 760px) {
-  .floating-line-cta { display: inline-flex; }
+  .floating-line-cta { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); left: 12px; display: flex; justify-content: center; min-height: 52px; padding: 12px 17px; border-radius: 15px; }
+  .floating-line-cta strong { font-size: 13px; }
+  .floating-line-cta span { font-size: 15px; }
 }
 
 @keyframes line-cta-pulse {

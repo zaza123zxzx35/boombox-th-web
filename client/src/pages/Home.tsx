@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
-  Clock3,
   Loader2,
   Menu,
   ShieldCheck,
@@ -226,31 +225,6 @@ async function copyOrderText(text: string) {
   if (!copied) throw new Error("ไม่สามารถคัดลอกข้อความได้");
 }
 
-const PROMOTION_DEADLINE_KEY = "boombox-promotion-deadline-v1";
-const PROMOTION_DURATION_MS = 7 * 24 * 60 * 60 * 1000;
-
-function getPromotionDeadline() {
-  try {
-    const saved = Number(window.localStorage.getItem(PROMOTION_DEADLINE_KEY));
-    if (Number.isFinite(saved) && saved > 0) return saved;
-    const deadline = Date.now() + PROMOTION_DURATION_MS;
-    window.localStorage.setItem(PROMOTION_DEADLINE_KEY, String(deadline));
-    return deadline;
-  } catch {
-    return Date.now() + PROMOTION_DURATION_MS;
-  }
-}
-
-function getTimeLeft(deadline: number) {
-  const total = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
-  return {
-    days: Math.floor(total / 86400),
-    hours: Math.floor((total % 86400) / 3600),
-    minutes: Math.floor((total % 3600) / 60),
-    seconds: total % 60,
-  };
-}
-
 function SectionHeading({ children, accent }: { children: string; accent: string }) {
   return (
     <div className="section-heading">
@@ -278,7 +252,7 @@ function AppHeader({ onMenu, onLineClick }: { onMenu: () => void; onLineClick: (
         <a href="#offers">แพ็กเกจ</a>
         <a href="#faq">คำถามที่พบบ่อย</a>
       </nav>
-      <a className="header-cta" href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" onClick={onLineClick}>แอด LINE รับโปร</a>
+      <a className="header-cta" href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" onClick={onLineClick}>คุยกับทีมงานใน LINE</a>
       <button className="mobile-menu" type="button" onClick={onMenu} aria-label="เปิดเมนู"><Menu size={21} /></button>
     </header>
   );
@@ -286,7 +260,6 @@ function AppHeader({ onMenu, onLineClick }: { onMenu: () => void; onLineClick: (
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(getPromotionDeadline()));
   const [orderNotice, setOrderNotice] = useState("");
   const [lineHandoffNotice, setLineHandoffNotice] = useState<"loading" | "success" | "error" | null>(null);
   const [lineCtaLoading, setLineCtaLoading] = useState(false);
@@ -333,7 +306,7 @@ export default function Home() {
     setLineCtaLoading(true);
     setLineHandoffNotice("loading");
     trackEngagement("line_click", packageCode);
-    window.setTimeout(() => window.location.assign(LINE_ADD_FRIEND_URL), 700);
+    window.location.assign(LINE_ADD_FRIEND_URL);
   };
 
   const openPackageModal = (pkg: { code: string; name: string; price: string; imageUrl?: string | null }) => {
@@ -386,14 +359,6 @@ export default function Home() {
         note: selectedDetail.note,
       })
     : LINE_ADD_FRIEND_URL;
-
-  useEffect(() => {
-    const deadline = getPromotionDeadline();
-    const updateCountdown = () => setTimeLeft(getTimeLeft(deadline));
-    updateCountdown();
-    const timer = window.setInterval(updateCountdown, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     if (!metaPixelId || document.querySelector('script[data-boombox-meta-pixel="true"]')) return;
@@ -473,7 +438,7 @@ export default function Home() {
           <a href="#reviews" onClick={() => setIsMenuOpen(false)}>รีวิวลูกค้า</a>
           <a href="#offers" onClick={() => setIsMenuOpen(false)}>แพ็กเกจ</a>
           <a href="#faq" onClick={() => setIsMenuOpen(false)}>คำถามที่พบบ่อย</a>
-          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event); }}>รับโปรเริ่มต้น 299 บาททาง LINE</a>
+          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`mobile-nav-line-cta ${lineCtaLoading ? "is-loading" : ""}`} onClick={(event) => { setIsMenuOpen(false); handleLineCtaClick(event); }}>ขอคำแนะนำฟรีใน LINE</a>
         </div>
       )}
 
@@ -484,16 +449,20 @@ export default function Home() {
           <div className="hero-content reveal">
             <p className="eyebrow"><span /> อุปกรณ์อัดเม็ดบีทแบบพกพา <span /></p>
             <p className="boombox-label">BOOMBOX TH</p>
-            <h1>เบื่อกลิ่นบุหรี่เดิม ๆ ใช่ไหม?<br /><em>เปลี่ยนกลิ่นใหม่ได้ใน 3 วินาที</em></h1>
-            <p className="hero-subtitle">เลือกกลิ่นใหม่ได้กว่า 40 กลิ่น ใช้งานง่าย พกสะดวก และเก็บเงินปลายทางทั่วไทย</p>
+            <h1>อยากเปลี่ยนกลิ่นได้ทุกวัน?<br /><em>เลือกกลิ่นที่ชอบ พร้อมใช้ใน 3 วินาที</em></h1>
+            <p className="hero-subtitle">BoomBox TH อุปกรณ์พกพาใช้งานง่าย เลือกได้กว่า 40 กลิ่น เริ่มต้น 299 บาท และเก็บเงินปลายทางทั่วไทย</p>
+            <div className="hero-offer-card">
+              <div><strong>รับคำแนะนำฟรี + ดู Set ที่เหมาะกับคุณ</strong><span>ทัก LINE แล้วทีมงานช่วยเลือกกลิ่นและแพ็กเกจให้ ไม่ต้องโอนก่อน</span></div>
+              <span className="hero-offer-price">เริ่ม ฿299</span>
+            </div>
+            <div className="hero-actions offer-actions">
+              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>คุยกับทีมงานใน LINE <ArrowRight size={17} /></a>
+              <p className="hero-note">กดแล้วเปิด LINE ทันที · ตอบคำถามและช่วยเลือกให้ฟรี</p>
+            </div>
             <div className="hero-video-gallery" aria-label="วิดีโอ BOOMBOX TH">
               {[mediaUrl("heroVideoOne", ASSET.heroVideoOne), mediaUrl("heroVideoTwo", ASSET.heroVideoTwo), mediaUrl("heroVideoThree", ASSET.heroVideoThree)].map((video, index) => <HeroVideoCard key={video} src={video} index={index} poster={mediaByKey[`heroPoster${index + 1}`] || HERO_POSTERS[index]} />)}
             </div>
             <p className="video-scroll-hint"><span>ปัดซ้ายเพื่อดูคลิปถัดไป</span> <ArrowRight size={14} /></p>
-            <div className="hero-actions offer-actions">
-              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE <ArrowRight size={17} /></a>
-              <p className="hero-note">ไม่ต้องโอนก่อน · ทีมงานช่วยเลือกกลิ่นและแพ็กเกจให้ฟรี</p>
-            </div>
           </div>
         </section>
 
@@ -555,7 +524,7 @@ export default function Home() {
         <section className="offer-section" id="offers">
           <div className="container">
             <div className="offer-intro">
-              <p className="eyebrow"><Clock3 size={14} /> LIMITED LAUNCH OFFER</p>
+              <p className="eyebrow">เริ่มต้น 299 บาท · เลือก Set ได้ตามการใช้งาน</p>
               <h2>เลือกแพ็กเกจที่เหมาะกับคุณ</h2>
               <p className="offer-deadline">ทุกชุดเก็บเงินปลายทาง · ไม่ต้องโอนก่อน</p>
             </div>
@@ -574,7 +543,7 @@ export default function Home() {
                     <li><Check size={15} /> {pkg.extras}</li>
                     <li><Check size={15} /> {pkg.scent}</li>
                   </ul>
-                  <button type="button" onClick={() => openPackageModal(pkg)} className={`price-button ${pkg.featured ? "primary-button" : "secondary-button"}`}>ดูรายละเอียด Set {pkg.code} <ArrowRight size={16} /></button>
+                  <button type="button" onClick={() => openPackageModal(pkg)} className={`price-button ${pkg.featured ? "primary-button" : "secondary-button"}`}>เลือก Set {pkg.code} <ArrowRight size={16} /></button>
                 </article>
               ))}
             </div>
@@ -604,7 +573,7 @@ export default function Home() {
               </div>
             </div>
             <div className="offer-final-cta">
-              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE <ArrowRight size={17} /></a>
+              <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ให้ทีมงานช่วยเลือก Set ฟรี <ArrowRight size={17} /></a>
               <p>ยังเลือกไม่ได้? ทัก LINE ให้ทีมงานช่วยแนะนำฟรี</p>
             </div>
             {orderNotice && <p className="order-notice"><Check size={15} /> {orderNotice}</p>}
@@ -660,7 +629,7 @@ export default function Home() {
             </div>
             <div className="faq-cta">
               <p>ยังเลือกไม่ได้? ทีมงานช่วยแนะนำให้ฟรี</p>
-            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE <ArrowRight size={17} /></a>
+            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ให้ทีมงานช่วยเลือก Set ฟรี <ArrowRight size={17} /></a>
             </div>
           </div>
         </section>
@@ -670,7 +639,7 @@ export default function Home() {
             <ShieldCheck size={30} className="trust-icon" />
             <h2>มีคำถาม? คุยกับทีม BoomBox TH ได้เลย</h2>
             <p>ทีมงานพร้อมให้คำแนะนำเรื่องกลิ่น แพ็กเกจ และวิธีใช้งาน<br />ทัก LINE มาได้ตลอด เรายินดีช่วยเลือกแพ็กเกจที่เหมาะกับคุณ</p>
-            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>รับโปรเริ่มต้น 299 บาททาง LINE</a>
+            <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`primary-button line-button ${lineCtaLoading ? "is-loading" : ""}`} onClick={handleLineCtaClick}>ขอคำแนะนำฟรีใน LINE</a>
           </div>
         </section>
       </main>
@@ -737,8 +706,8 @@ export default function Home() {
         </div>
       )}
 
-      <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="รับโปรเริ่มต้น 299 บาททาง LINE" onClick={handleLineCtaClick}>
-        <strong>LINE</strong><span>รับโปร 299 บาท</span>
+      <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer" className={`floating-line-cta ${lineCtaLoading ? "is-loading" : ""}`} aria-label="ขอคำแนะนำฟรีใน LINE" onClick={handleLineCtaClick}>
+        <strong>LINE</strong><span>ขอคำแนะนำฟรี</span>
       </a>
 
       {lineHandoffNotice && <div className={`line-handoff-popup ${lineHandoffNotice === "success" ? "is-success" : lineHandoffNotice === "loading" ? "is-loading" : "is-error"}`} role="status" aria-live="assertive">
