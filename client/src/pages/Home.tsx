@@ -98,9 +98,9 @@ const customerReviews = [
 ].map(([name, text]) => ({ name, text }));
 
 const painPoints = [
-  { icon: "◌", title: "จ่ายค่าบุหรี่เดือนละเกือบ 2,000", text: "แพงขึ้นทุกเดือน แต่รสชาติเท่าเดิม" },
-  { icon: "✦", title: "เบื่อรสเดิม", text: "Marlboro Black มาจะ 5 ปี ไม่มีอะไรใหม่" },
-  { icon: "↗", title: "ลองเปลี่ยนก็ไม่คุ้ม", text: "บุหรี่แพงก็แพงไป บุหรี่ถูกก็ไม่อร่อย" },
+  { icon: "◌", title: "เบื่อกลิ่นเดิม ๆ", text: "อยากมีตัวเลือกใหม่ โดยไม่ต้องซื้อหลายแบบมาลอง" },
+  { icon: "✦", title: "อยากเลือกกลิ่นเอง", text: "ชอบผลไม้ มิ้นท์ ขนม หรือดอกไม้ ก็เลือกได้ตามสไตล์" },
+  { icon: "↗", title: "ไม่อยากเสี่ยงโอนก่อน", text: "คุยกับทีมงานก่อน และเลือกเก็บเงินปลายทางได้" },
 ];
 
 const modelSteps = [
@@ -506,6 +506,18 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="product-clarity-section section-dark" aria-labelledby="product-clarity-title">
+          <div className="container product-clarity-grid">
+            <div className="product-clarity-copy">
+              <p className="eyebrow">สิ่งที่คุณจะได้รับ</p>
+              <h2 id="product-clarity-title">อุปกรณ์พกพา สำหรับเพิ่มตัวเลือกกลิ่นในชีวิตประจำวัน</h2>
+              <p>เลือกกลิ่นที่ชอบ ใส่เม็ด กด และใช้งานตามขั้นตอนที่แนะนำ ไม่ต้องตั้งค่าซับซ้อน พร้อมให้ทีมงานช่วยเลือก Set ที่เหมาะกับคุณ</p>
+              <div className="product-clarity-points"><span><Check size={16} /> 40 กลิ่นให้เลือก</span><span><Check size={16} /> ใช้งานง่ายใน 3 ขั้นตอน</span><span><Check size={16} /> เริ่มต้น 299 บาท</span></div>
+            </div>
+            <figure className="product-clarity-media"><img src={ASSET.boomboxStory} alt="อุปกรณ์ BoomBox TH และเม็ดกลิ่น" loading="lazy" decoding="async" /></figure>
+          </div>
+        </section>
+
         <section className="how-it-works-section section-dark" id="how-it-works">
           <div className="container">
             <SectionHeading accent="ใช้งานง่าย">ทำงานอย่างไร?</SectionHeading>
@@ -518,6 +530,28 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="student-strip review-strip" id="reviews" aria-label="รีวิวจากลูกค้า">
+          <div className="container">
+            <p className="strip-label">เสียงจากลูกค้าที่เลือก BOOMBOX TH — รีวิว 15 รายการ</p>
+          </div>
+          <div className="marquee-wrap" ref={reviewViewportRef}>
+            <div className="marquee-track">
+              {[...customerReviews, ...customerReviews].map((review, index) => (
+                <article className="review-card" key={`${review.name}-${index}`}>
+                  <div className="review-head">
+                    <div className="review-avatar">{review.name.slice(0, 1)}</div>
+                    <div><strong>{review.name}</strong><span>ลูกค้า BOOMBOX TH</span></div>
+                    <span className="verified-badge" aria-label="รีวิวจากลูกค้า"><Check size={12} /> ลูกค้ารีวิว</span>
+                  </div>
+                  <div className="review-stars" aria-label="5 ดาว">★★★★★</div>
+                  <p>{review.text}</p>
+                  <small>ขอบคุณที่ไว้วางใจเรา</small>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="offer-section" id="offers">
           <div className="container">
             <div className="offer-intro">
@@ -525,7 +559,7 @@ export default function Home() {
               <h2>เลือกแพ็กเกจที่เหมาะกับคุณ</h2>
               <p className="offer-deadline">ทุกชุดเก็บเงินปลายทาง · ไม่ต้องโอนก่อน</p>
             </div>
-            <p className="order-helper"><strong>วิธีไปต่อ:</strong> เลือกแพ็กเกจ → ดูรายละเอียด → สอบถามและสั่งซื้อผ่าน LINE</p>
+            <p className="order-helper"><strong>วิธีไปต่อ:</strong> เลือกแพ็กเกจ → ดูของที่ได้รับ → ส่งข้อมูลให้ทีมงานใน LINE</p>
             <div className="pricing-grid package-grid">
               {displayPackages.map((pkg) => (
                 <article className={`price-card package-card ${pkg.featured ? "featured-package" : ""}`} key={pkg.code}>
@@ -577,54 +611,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="student-strip review-strip" id="reviews" aria-label="รีวิวจากลูกค้า">
-          <div className="container">
-            <p className="strip-label">เสียงจากลูกค้าที่เลือก BOOMBOX TH — รีวิว 15 รายการ</p>
-          </div>
-          <div className="marquee-wrap" ref={reviewViewportRef}>
-            <div className="marquee-track">
-              {[...customerReviews, ...customerReviews].map((review, index) => (
-                <article className="review-card" key={`${review.name}-${index}`}>
-                  <div className="review-head">
-                    <div className="review-avatar">{review.name.slice(0, 1)}</div>
-                    <div><strong>{review.name}</strong><span>ลูกค้า BOOMBOX TH</span></div>
-                    <span className="verified-badge" aria-label="รีวิวจากลูกค้า"><Check size={12} /> ลูกค้ารีวิว</span>
-                  </div>
-                  <div className="review-stars" aria-label="5 ดาว">★★★★★</div>
-                  <p>{review.text}</p>
-                  <small>ขอบคุณที่ไว้วางใจเรา</small>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        <section className="story-section section-dark" id="story">
-          <div className="container narrow">
-            <SectionHeading accent="BoomBox TH">เบื้องหลัง</SectionHeading>
-            <div className="story-copy">
-              <p>เริ่มจากความเบื่อ<br />จ่ายค่าบุหรี่เดือนละเกือบ <strong className="story-highlight">2,000 บาท</strong><br />กับรสเดิม ๆ มาตั้ง <strong className="story-highlight">5 ปี</strong></p>
-              <p className="accent-copy">จนเจอวิธีที่ใช่<br /><strong className="story-highlight">เพิ่มตัวเลือกกลิ่น</strong> ให้วันเดิม ๆ มีอะไรใหม่ขึ้น</p>
-              <p>วันนี้เอามาให้ทุกคนได้ลอง<br />เริ่มต้นเพียง <strong className="story-highlight">299 บาท</strong><br />จ่ายปลายทาง ไม่ต้องโอนก่อน</p>
-            </div>
-            <figure className="story-image boombox-story-image"><img src={mediaUrl("boomboxStory", ASSET.boomboxStory)} alt="ภาพสินค้า BoomBox TH และกลิ่นที่มีให้เลือก" loading="lazy" decoding="async" /></figure>
-          </div>
-        </section>
-
-        <section className="results-section section-dark" id="results">
-          <div className="container">
-            <SectionHeading accent="BoomBox TH">จุดเด่นของ</SectionHeading>
-            <div className="results-grid">
-              {results.map((result) => (
-                <article className="result-card" key={result.channel}>
-                  <h3>{result.amount} <span>{result.period}</span></h3>
-                  <p>{result.channel}</p>
-                  <img src={mediaUrl(result.mediaKey, result.image)} alt={`${result.channel} BoomBox TH`} loading="lazy" decoding="async" />
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="problems-section" id="problems">
           <div className="container">
@@ -640,21 +627,6 @@ export default function Home() {
               ))}
             </div>
             <div className="bridge-line"><span>แล้วถ้ามีวิธีที่ไม่ต้องเจอปัญหาเหล่านี้เลยล่ะ?</span><ArrowRight size={21} /></div>
-          </div>
-        </section>
-
-        <section className="model-section">
-          <div className="container narrow">
-            <SectionHeading accent="BoomBox">เปลี่ยนบุหรี่ซอง 60 บาท</SectionHeading>
-            <p className="center-intro">เลือกกลิ่นใหม่ได้ง่าย ใช้เวลาไม่นาน และพกไปได้ทุกวัน</p>
-            <div className="model-grid">
-              {modelSteps.map(([letter, title, text]) => (
-                <article className="model-card" key={`${letter}-${title}`}>
-                  <span className="model-letter">{letter}</span>
-                  <div><h3>{title}</h3><p>{text}</p></div>
-                </article>
-              ))}
-            </div>
           </div>
         </section>
 
