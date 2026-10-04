@@ -36,6 +36,6 @@ The same files are copied to `client/public/assets/` so Vite serves them from `/
 The public landing page and its media are portable. The current repository is still a full-stack application: the admin dashboard, catalog editing, analytics, Manus OAuth, and server-side storage procedures require a compatible backend, database, authentication provider, and object storage to be configured separately. Netlify static hosting serves the landing page but does not provide those backend services.
 
 The LINE handoff URL is intentionally external because it is the sales destination:
-`https://line.me/R/ti/p/@425syacj`
+`https://lin.ee/qczVNTJ`
 
 If you want a completely independent full-stack deployment, replace the Manus OAuth/storage/database adapters in `server/_core`, `server/storage.ts`, and the catalog procedures before deploying the server.

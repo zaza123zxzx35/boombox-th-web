@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
-import { createLineOrderUrl, LINE_ADD_FRIEND_URL } from "../shared/line";
+import { createLineOrderMessage, createLineOrderUrl, LINE_ADD_FRIEND_URL } from "../shared/line";
 
 type ContextOverrides = Partial<TrpcContext>;
 
@@ -30,13 +30,13 @@ function adminUser() {
 
 describe("boombox admin procedures", () => {
   it("uses the exact LINE Official Account add-friend URL", () => {
-    expect(LINE_ADD_FRIEND_URL).toBe("https://line.me/R/ti/p/@425syacj");
+    expect(LINE_ADD_FRIEND_URL).toBe("https://lin.ee/qczVNTJ");
   });
 
   it("builds a LINE order URL with the selected package in the preset message", () => {
     const url = createLineOrderUrl({ code: "B", name: "คุ้มค่า", price: "389" });
-    expect(url).toContain("/R/oaMessage/%40425syacj/");
-    expect(decodeURIComponent(url.split("?")[1] ?? "")).toContain("แพ็กเกจ B คุ้มค่า ราคา 389 บาท");
+    expect(url).toBe("https://lin.ee/qczVNTJ");
+    expect(createLineOrderMessage({ code: "B", name: "คุ้มค่า", price: "389" })).toContain("แพ็กเกจ B คุ้มค่า ราคา 389 บาท");
   });
 
   it("includes selected device color and scent boxes in a LINE order URL", () => {
@@ -44,7 +44,10 @@ describe("boombox admin procedures", () => {
       { code: "B", name: "คุ้มค่า", price: "389" },
       { deviceColors: ["สีดำ"], scents: ["มิ้นท์", "สตรอว์เบอร์รี"], note: "เลือกกลิ่นซ้ำได้" },
     );
-    const message = decodeURIComponent(url.split("?")[1] ?? "");
+    const message = createLineOrderMessage(
+      { code: "B", name: "คุ้มค่า", price: "389" },
+      { deviceColors: ["สีดำ"], scents: ["มิ้นท์", "สตรอว์เบอร์รี"], note: "เลือกกลิ่นซ้ำได้" },
+    );
     expect(message).toContain("สีเครื่อง: สีดำ");
     expect(message).toContain("กล่องที่ 1: มิ้นท์");
     expect(message).toContain("กล่องที่ 2: สตรอว์เบอร์รี");

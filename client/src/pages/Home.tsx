@@ -106,7 +106,7 @@ const faqItems = [
   ["แพ็กเกจไหนเหมาะกับฉัน?", "ถ้าอยากลองก่อน เริ่มจากแพ็กเกจ A ได้เลย ส่วนแพ็กเกจ B เป็นตัวเลือกคุ้มค่าที่มีเม็ดมากขึ้น และแพ็กเกจ C-D เหมาะกับคนที่อยากมีเม็ดสำรองและเลือกกลิ่นได้หลากหลาย"],
   ["ใช้งานยากไหม?", "ใช้งานง่าย แค่ใส่เม็ดกลิ่นลงในเครื่อง กด และรอประมาณ 3 วินาที ก็พร้อมใช้งาน"],
   ["เลือกกลิ่นได้อย่างไร?", "เลือกจากกลิ่นฮิตบนหน้าเว็บ หรือทัก LINE เพื่อให้ทีมงานช่วยแนะนำกลิ่นตามสไตล์ที่ชอบได้ฟรี"],
-  ["สั่งซื้อและชำระเงินอย่างไร?", "กดปุ่มสั่งแพ็กเกจที่ต้องการ ระบบจะพาไป LINE @425syacj พร้อมคัดลอกข้อความแพ็กเกจไว้ให้วางส่งกับทีมงานได้ทันที"],
+  ["สั่งซื้อและชำระเงินอย่างไร?", "กดปุ่มสั่งแพ็กเกจที่ต้องการ ระบบจะพาไป LINE Official Account พร้อมคัดลอกข้อความแพ็กเกจไว้ให้วางส่งกับทีมงานได้ทันที"],
   ["ส่งอย่างไรและจ่ายเงินแบบไหน?", "ทุก Set ส่งฟรี และเก็บเงินปลายทางได้ ส่วน Refill ส่งฟรีเมื่อรวมครบ 200 เม็ด ไม่ต้องโอนก่อน หากต้องการให้ทีมงานช่วยเลือก Set หรือกลิ่น ทัก LINE ได้เลย"],
 ];
 
@@ -732,7 +732,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <div className="brand"><div className="brand-mark">BB</div><div><strong>BOOMBOX TH</strong><span>อุปกรณ์อัดเม็ดบีทพกพา</span></div></div>
-          <div className="footer-business-contact"><strong>ติดต่อทีมงาน</strong><a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={lineCtaLoading ? "is-loading" : ""} onClick={handleLineCtaClick}>LINE Official Account: @425syacj</a></div>
+          <div className="footer-business-contact"><strong>ติดต่อทีมงาน</strong><a href={LINE_SET_HELP_URL} target="_blank" rel="noreferrer" className={lineCtaLoading ? "is-loading" : ""} onClick={handleLineCtaClick}>LINE Official Account: BoomBox TH</a></div>
           <div className="footer-links"><a href="/privacy-policy">นโยบายความเป็นส่วนตัว</a><p>© 2026 BoomBox TH</p></div>
           <a href="#top" aria-label="กลับด้านบน"><ChevronDown size={20} className="to-top" /></a>
         </div>

@@ -1,8 +1,9 @@
-export const LINE_ACCOUNT_ID = "@425syacj";
-export const LINE_ADD_FRIEND_URL = `https://line.me/R/ti/p/${LINE_ACCOUNT_ID}`;
-
+export const LINE_ADD_FRIEND_URL = "https://lin.ee/qczVNTJ";
 export function createLineMessageUrl(message: string) {
-  return `https://line.me/R/oaMessage/${encodeURIComponent(LINE_ACCOUNT_ID)}/?${encodeURIComponent(message)}`;
+  // The verified short URL is the single source of truth for every LINE CTA.
+  // Messages are copied by the package flow before navigation.
+  void message;
+  return LINE_ADD_FRIEND_URL;
 }
 
 export const LINE_SCENT_LIST_URL = createLineMessageUrl(

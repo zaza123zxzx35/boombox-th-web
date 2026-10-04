@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
         <section className="legal-contact">
           <h2>ติดต่อเรื่องข้อมูลส่วนตัว</h2>
           <p>ทีมงาน BoomBox TH</p>
-          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer">LINE Official Account: @425syacj</a>
+          <a href={LINE_ADD_FRIEND_URL} target="_blank" rel="noreferrer">LINE Official Account: BoomBox TH</a>
         </section>
       </div>
     </main>
